@@ -75,8 +75,8 @@ configure(allprojects){
 		testImplementation group: "org.testng", name:"testng", version: "$testNgVersion"
 
         // Apache POI Dependencies for Excel Operations
-        implementation "org.apache.poi:poi:5.4.1"
-        implementation "org.apache.poi:poi-ooxml:5.4.1"
+        implementation "org.apache.poi:poi:5.2.2"
+        implementation "org.apache.poi:poi-ooxml:5.2.2"
         // If full OOXML schema coverage is needed in the future:
         // implementation "org.apache.poi:poi-ooxml-full:5.4.1"
 //        implementation 'org.apache.poi:poi-scratchpad:5.4.1'

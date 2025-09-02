@@ -327,5 +327,25 @@
   "DeleteCellRange.option.shiftLeft.label": "Shift cells left",
   "DeleteCellRange.option.shiftUp.label": "Shift cells up",
   "DeleteCellRange.option.entireRow.label": "Entire row",
-  "DeleteCellRange.option.entireCol.label": "Entire column"
+  "DeleteCellRange.option.entireCol.label": "Entire column",
+
+  "SetActiveCell.label": "Go to cell",
+  "SetActiveCell.node_label": "at {{cellOrRangeA1}}|{{relativeMove}} of the current cell| - {{session}}",
+  "SetActiveCell.description": "Moves the cursor to a specific cell in a Microsoft Excel spreadsheet, if a range is provided the top-leftmost cell will be activated.",
+  "SetActiveCell.mode.label": "Cell option",
+  "SetActiveCell.mode.description": "",
+  "SetActiveCell.mode.specific.label": "Specific cell",
+  "SetActiveCell.mode.active.label": "Active cell",
+  "SetActiveCell.cellOrRange.label": "",
+  "SetActiveCell.cellOrRange.description": "e.g. A5 or B10:20",
+  "SetActiveCell.relative.label": "",
+  "SetActiveCell.relative.description": "",
+  "SetActiveCell.relative.left": "One cell to the left",
+  "SetActiveCell.relative.right": "One cell to the right",
+  "SetActiveCell.relative.up": "One cell above",
+  "SetActiveCell.relative.down": "One cell below",
+  "SetActiveCell.relative.beginRow": "Beginning of the row",
+  "SetActiveCell.relative.endRow": "End of the row",
+  "SetActiveCell.relative.beginCol": "Beginning of the column",
+  "SetActiveCell.relative.endCol": "End of the column"
 }
