@@ -347,5 +347,18 @@
   "SetActiveCell.relative.beginRow": "Beginning of the row",
   "SetActiveCell.relative.endRow": "End of the row",
   "SetActiveCell.relative.beginCol": "Beginning of the column",
-  "SetActiveCell.relative.endCol": "End of the column"
+  "SetActiveCell.relative.endCol": "End of the column",
+
+  "GetCellAddress.label": "Get cell address",
+  "GetCellAddress.node_label": "of {{mode}}| with {{columnTitle}} and position {{position}}| - {{session}}",
+  "GetCellAddress.description": "Retrieves the location of the active cell and stores it to a string variable.",
+  "GetCellAddress.return.label": "Save the active or user specified cell address in local variable",
+  "GetCellAddress.mode.label": "Cell option",
+  "GetCellAddress.mode.description": "",
+  "GetCellAddress.mode.active.label": "Active cell",
+  "GetCellAddress.mode.specific.label": "Specific cell",
+  "GetCellAddress.columnTitle.label": "Column title",
+  "GetCellAddress.columnTitle.description": "Text to match in the header row (first non-empty row).",
+  "GetCellAddress.position.label": "Position under header (1-based)",
+  "GetCellAddress.position.description": "Row position below the header in the matched column; 1 means the first data row under the header."
 }

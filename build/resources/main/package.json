@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250902-173552",
-    "codeVersion": "0.0.1-20250902-173552",
+    "packageVersion": "0.0.1-20250902-175456",
+    "codeVersion": "0.0.1-20250902-175456",
     "author": "",
     "commands": [
         {
@@ -1166,6 +1166,99 @@
                     "rules": [
                         {
                             "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "session",
+                    "label": "[[existingSession.label]]",
+                    "description": "[[existingSession.description]]",
+                    "type": "SESSION",
+                    "defaultValue": {
+                        "sessionName": {
+                            "string": "Default",
+                            "type": "STRING"
+                        },
+                        "type": "SESSION"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "SESSION_OBJECT"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "getCellAddress",
+            "label": "[[GetCellAddress.label]]",
+            "description": "[[GetCellAddress.description]]",
+            "nodeLabel": "[[GetCellAddress.node_label]]",
+            "allowedAgentTargets": [
+                "WINDOWS"
+            ],
+            "minimumControlRoomVersion": "8750",
+            "minimumBotAgentVersion": "20.11",
+            "mainClass": "com.davita.botcommand.excel.commands.GetCellAddressCommand",
+            "icon": "excel-icon.svg",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "[[GetCellAddress.return.label]]",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "mode",
+                    "label": "[[GetCellAddress.mode.label]]",
+                    "description": "[[GetCellAddress.mode.description]]",
+                    "type": "RADIO",
+                    "defaultValue": {
+                        "string": "ACTIVE",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "[[GetCellAddress.mode.active.label]]",
+                            "value": "ACTIVE"
+                        },
+                        {
+                            "label": "[[GetCellAddress.mode.specific.label]]",
+                            "value": "SPECIFIC",
+                            "attributes": [
+                                {
+                                    "name": "columnTitle",
+                                    "label": "[[GetCellAddress.columnTitle.label]]",
+                                    "description": "[[GetCellAddress.columnTitle.description]]",
+                                    "type": "TEXT",
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "position",
+                                    "label": "[[GetCellAddress.position.label]]",
+                                    "description": "[[GetCellAddress.position.description]]",
+                                    "type": "NUMBER",
+                                    "defaultValue": {
+                                        "number": "1",
+                                        "type": "NUMBER"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
