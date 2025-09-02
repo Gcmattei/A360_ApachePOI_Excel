@@ -1,0 +1,95 @@
+buildscript {
+	repositories {
+		gradlePluginPortal()
+		flatDir {
+			dirs 'libs'
+		}
+		dependencies {
+			classpath name:'package-compileonly-sdk', version: '1.6.0'
+			classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.1"
+		}
+	}
+}
+
+plugins {
+	id 'java'
+}
+
+configure(allprojects){
+
+	apply plugin: 'com.github.johnrengelman.shadow'
+	apply plugin: "com.automationanywhere.command-codegen"
+
+	ext {
+		groupName = 'com.automationanywhere'
+		testNgVersion = '6.14.3'
+		loggerVersion = '2.20.0'
+		jnaVersion = '5.3.1'
+		version '0.0.1'
+	}
+	group "$groupName"
+
+	sourceCompatibility = JavaVersion.VERSION_11
+
+	compileJava.options.encoding = 'UTF-8'
+	compileTestJava.options.encoding = 'UTF-8'
+
+	repositories {
+		mavenCentral()
+		flatDir {
+			dirs 'libs'
+		}
+	}
+
+	packageJson{
+		artifactName = project.name
+		group = "$groupName"
+		author = ""
+		generatePackageWithDateTime = true
+	}
+
+	classes.dependsOn commandCodeGen
+
+	shadowJar {
+		archiveBaseName = project.name
+		classifier = null
+		mergeServiceFiles('META-INF/spring.*')
+		mergeServiceFiles('META-INF/services/java.sql.Driver')
+		zip64 = true
+		exclude 'META-INF/MANIFEST.MF'
+		exclude 'META-INF/*.SF'
+		exclude 'META-INF/*.DSA'
+		exclude 'META-INF/*.RSA'
+	}
+
+	dependencies {
+		annotationProcessor name: 'package-compileonly-sdk', version: '1.6.0'
+
+		compileOnly name: 'package-compileonly-sdk', version: '1.6.0'
+		compileOnly group: "org.apache.logging.log4j", name: "log4j-api", version: "$loggerVersion"
+		compileOnly group: "net.java.dev.jna", name: "jna-platform", version: "$jnaVersion"
+
+		implementation name: 'package-runtime-sdk', version: '1.0.0'
+
+		testImplementation name: 'package-compileonly-sdk', version: '1.6.0'
+		testImplementation group: "org.testng", name:"testng", version: "$testNgVersion"
+
+        // Apache POI Dependencies for Excel Operations
+        implementation "org.apache.poi:poi:5.2.2"            // core HSSF/SS [web:122]
+        implementation "org.apache.poi:poi-ooxml:5.2.2"      // XSSF (xlsx) [web:122]
+        implementation 'org.apache.poi:poi-scratchpad:5.2.2'
+
+        // JNA for Windows native locking
+        implementation "net.java.dev.jna:jna:5.13.0"         // core JNA [web:119]
+        implementation "net.java.dev.jna:jna-platform:5.13.0"// Win32 Kernel32, HANDLE, etc. [web:117]
+
+        // Additional utilities
+        implementation 'commons-io:commons-io:2.11.0'
+
+        // Optional: logging
+         implementation "org.slf4j:slf4j-api:2.0.13"
+         runtimeOnly "ch.qos.logback:logback-classic:1.5.8"
+
+        testImplementation "junit:junit:4.13.2"
+    }
+}
