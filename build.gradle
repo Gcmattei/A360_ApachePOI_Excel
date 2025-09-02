@@ -75,9 +75,11 @@ configure(allprojects){
 		testImplementation group: "org.testng", name:"testng", version: "$testNgVersion"
 
         // Apache POI Dependencies for Excel Operations
-        implementation "org.apache.poi:poi:5.2.2"            // core HSSF/SS [web:122]
-        implementation "org.apache.poi:poi-ooxml:5.2.2"      // XSSF (xlsx) [web:122]
-        implementation 'org.apache.poi:poi-scratchpad:5.2.2'
+        implementation "org.apache.poi:poi:5.4.1"
+        implementation "org.apache.poi:poi-ooxml:5.4.1"
+        // If full OOXML schema coverage is needed in the future:
+        // implementation "org.apache.poi:poi-ooxml-full:5.4.1"
+//        implementation 'org.apache.poi:poi-scratchpad:5.4.1'
 
         // JNA for Windows native locking
         implementation "net.java.dev.jna:jna:5.13.0"         // core JNA [web:119]

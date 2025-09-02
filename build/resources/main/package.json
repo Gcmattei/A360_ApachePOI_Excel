@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250902-132529",
-    "codeVersion": "0.0.1-20250902-132529",
+    "packageVersion": "0.0.1-20250902-144856",
+    "codeVersion": "0.0.1-20250902-144856",
     "author": "",
     "commands": [
         {
@@ -18,7 +18,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.CloseWorkbookCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.CloseWorkbookCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -75,7 +75,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.CreateWorkbookCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.CreateWorkbookCommand",
             "icon": "excel-icon.svg",
             "returnType": "SESSION",
             "returnSubtype": "UNDEFINED",
@@ -133,7 +133,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.CreateWorksheetCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.CreateWorksheetCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -186,7 +186,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.DeleteCellRangeCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.DeleteCellRangeCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -294,7 +294,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.DeleteWorksheetCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.DeleteWorksheetCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -391,7 +391,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.FilterWorksheetOrTableCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.FilterWorksheetOrTableCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -903,7 +903,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.FindNextEmptyCellCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.FindNextEmptyCellCommand",
             "icon": "excel-icon.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
@@ -1006,7 +1006,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.FindTextInSheetCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.FindTextInSheetCommand",
             "icon": "excel-icon.svg",
             "returnType": "LIST",
             "returnSubtype": "STRING",
@@ -1202,7 +1202,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.GetCellValueCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.GetCellValueCommand",
             "icon": "excel-icon.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
@@ -1321,7 +1321,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.GetRowCountCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.GetRowCountCommand",
             "icon": "excel-icon.svg",
             "returnType": "NUMBER",
             "returnSubtype": "UNDEFINED",
@@ -1441,7 +1441,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.GetWorksheetAsTableCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.GetWorksheetAsTableCommand",
             "icon": "excel-icon.svg",
             "returnType": "TABLE",
             "returnSubtype": "UNDEFINED",
@@ -1658,7 +1658,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.GetWorksheetNamesCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.GetWorksheetNamesCommand",
             "icon": "excel-icon.svg",
             "returnType": "LIST",
             "returnSubtype": "STRING",
@@ -1698,7 +1698,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.ModifyRowsColumnsCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.ModifyRowsColumnsCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -1871,7 +1871,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.OpenWorkbookCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.OpenWorkbookCommand",
             "icon": "excel-icon.svg",
             "returnType": "SESSION",
             "returnSubtype": "UNDEFINED",
@@ -1938,7 +1938,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.RenameWorksheetCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.RenameWorksheetCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -2042,7 +2042,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.SaveWorkbookCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.SaveWorkbookCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -2084,7 +2084,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.SaveWorkbookAsCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.SaveWorkbookAsCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -2158,7 +2158,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.SetCellCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.SetCellCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -2244,7 +2244,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.SwitchToSheetCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.SwitchToSheetCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -2341,7 +2341,7 @@
             ],
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
-            "mainClass": "com.automationanywhere.botcommand.excel.commands.WriteTableToWorksheetCommand",
+            "mainClass": "com.davita.botcommand.excel.commands.WriteTableToWorksheetCommand",
             "icon": "excel-icon.svg",
             "returns": [
                 {
