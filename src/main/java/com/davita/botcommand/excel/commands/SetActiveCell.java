@@ -143,6 +143,9 @@ public class SetActiveCell {
         if (move == null || move.trim().isEmpty()) {
             throw new BotCommandException("Relative move option must be selected for 'Active Cell' mode.");
         }
+
+        Row r;
+
         switch (move.toUpperCase()) {
             case "LEFT":
                 col = Math.max(0, col - 1);
@@ -157,10 +160,15 @@ public class SetActiveCell {
                 row = Math.min(maxRow, row + 1);
                 break;
             case "BEGIN_ROW":
-                col = 0;
+                r = sheet.getRow(row);
+                if (r != null && r.getFirstCellNum() > 0) {
+                    col = Math.max(0, r.getFirstCellNum());
+                } else {
+                    col = 0;
+                }
                 break;
             case "END_ROW": {
-                Row r = sheet.getRow(row);
+                r = sheet.getRow(row);
                 if (r != null && r.getLastCellNum() > 0) {
                     col = Math.min(maxCol, r.getLastCellNum() - 1);
                 } else {
@@ -172,10 +180,10 @@ public class SetActiveCell {
                 int firstRow = Math.max(0, sheet.getFirstRowNum());
                 int lastRow = Math.max(firstRow, sheet.getLastRowNum());
                 int candidate = -1;
-                for (int r = firstRow; r <= lastRow; r++) {
-                    Row rr = sheet.getRow(r);
+                for (int i = firstRow; i <= lastRow; i++) {
+                    Row rr = sheet.getRow(i);
                     if (rr != null && rr.getCell(col) != null) {
-                        candidate = r;
+                        candidate = i;
                         break;
                     }
                 }
@@ -186,10 +194,10 @@ public class SetActiveCell {
                 int firstRow = Math.max(0, sheet.getFirstRowNum());
                 int lastRow = Math.max(firstRow, sheet.getLastRowNum());
                 int candidate = -1;
-                for (int r = lastRow; r >= firstRow; r--) {
-                    Row rr = sheet.getRow(r);
+                for (int i = lastRow; i >= firstRow; i--) {
+                    Row rr = sheet.getRow(i);
                     if (rr != null && rr.getCell(col) != null) {
-                        candidate = r;
+                        candidate = i;
                         break;
                     }
                 }

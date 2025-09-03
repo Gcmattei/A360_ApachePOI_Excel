@@ -360,5 +360,21 @@
   "GetCellAddress.columnTitle.label": "Column title",
   "GetCellAddress.columnTitle.description": "Text to match in the header row (first non-empty row).",
   "GetCellAddress.position.label": "Position under header (1-based)",
-  "GetCellAddress.position.description": "Row position below the header in the matched column; 1 means the first data row under the header."
+  "GetCellAddress.position.description": "Row position below the header in the matched column; 1 means the first data row under the header.",
+
+  "GoToNextEmptyCell.label": "Go to next empty cell",
+  "GoToNextEmptyCell.node_label": "from {{mode}}| {{startCell}}| towards {{direction}}| - {{session}}",
+  "GoToNextEmptyCell.description": "Finds the next empty cell in the current worksheet. You can specify whether to find the empty cell toward the left, right, up, or down.",
+  "GoToNextEmptyCell.mode.label": "Start from",
+  "GoToNextEmptyCell.mode.description": "",
+  "GoToNextEmptyCell.mode.active.label": "Active Cell",
+  "GoToNextEmptyCell.mode.specific.label": "Specific Cell",
+  "GoToNextEmptyCell.startCell.label": "",
+  "GoToNextEmptyCell.startCell.description": "e.g. A5 or B10",
+  "GoToNextEmptyCell.dir.label": "Towards",
+  "GoToNextEmptyCell.dir.description": "",
+  "GoToNextEmptyCell.dir.left": "Left",
+  "GoToNextEmptyCell.dir.right": "Right",
+  "GoToNextEmptyCell.dir.up": "Up",
+  "GoToNextEmptyCell.dir.down": "Down"
 }

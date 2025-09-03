@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250902-175456",
-    "codeVersion": "0.0.1-20250902-175456",
+    "packageVersion": "0.0.1-20250903-125038",
+    "codeVersion": "0.0.1-20250903-125038",
     "author": "",
     "commands": [
         {
@@ -1758,6 +1758,119 @@
             "returnLabel": "[[GetWorksheetNames.return_label]]",
             "returnRequired": true,
             "attributes": [
+                {
+                    "name": "session",
+                    "label": "[[existingSession.label]]",
+                    "description": "[[existingSession.description]]",
+                    "type": "SESSION",
+                    "defaultValue": {
+                        "sessionName": {
+                            "string": "Default",
+                            "type": "STRING"
+                        },
+                        "type": "SESSION"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "SESSION_OBJECT"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "goToNextEmptyCell",
+            "label": "[[GoToNextEmptyCell.label]]",
+            "description": "[[GoToNextEmptyCell.description]]",
+            "nodeLabel": "[[GoToNextEmptyCell.node_label]]",
+            "allowedAgentTargets": [
+                "WINDOWS"
+            ],
+            "minimumControlRoomVersion": "8750",
+            "minimumBotAgentVersion": "20.11",
+            "mainClass": "com.davita.botcommand.excel.commands.GoToNextEmptyCellCommand",
+            "icon": "excel-icon.svg",
+            "returns": [
+                {
+                    "type": "UNDEFINED",
+                    "subtype": "ANY"
+                }
+            ],
+            "attributes": [
+                {
+                    "name": "mode",
+                    "label": "[[GoToNextEmptyCell.mode.label]]",
+                    "description": "[[GoToNextEmptyCell.mode.description]]",
+                    "type": "RADIO",
+                    "defaultValue": {
+                        "string": "ACTIVE",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "[[GoToNextEmptyCell.mode.active.label]]",
+                            "value": "ACTIVE"
+                        },
+                        {
+                            "label": "[[GoToNextEmptyCell.mode.specific.label]]",
+                            "value": "SPECIFIC",
+                            "attributes": [
+                                {
+                                    "name": "startCell",
+                                    "label": "[[GoToNextEmptyCell.startCell.label]]",
+                                    "description": "[[GoToNextEmptyCell.startCell.description]]",
+                                    "type": "TEXT",
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "direction",
+                    "label": "[[GoToNextEmptyCell.dir.label]]",
+                    "description": "[[GoToNextEmptyCell.dir.description]]",
+                    "type": "RADIO",
+                    "defaultValue": {
+                        "string": "RIGHT",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "[[GoToNextEmptyCell.dir.left]]",
+                            "value": "LEFT"
+                        },
+                        {
+                            "label": "[[GoToNextEmptyCell.dir.right]]",
+                            "value": "RIGHT"
+                        },
+                        {
+                            "label": "[[GoToNextEmptyCell.dir.up]]",
+                            "value": "UP"
+                        },
+                        {
+                            "label": "[[GoToNextEmptyCell.dir.down]]",
+                            "value": "DOWN"
+                        }
+                    ]
+                },
                 {
                     "name": "session",
                     "label": "[[existingSession.label]]",
