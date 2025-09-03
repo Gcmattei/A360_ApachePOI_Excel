@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250903-125038",
-    "codeVersion": "0.0.1-20250903-125038",
+    "packageVersion": "0.0.1-20250903-125904",
+    "codeVersion": "0.0.1-20250903-125904",
     "author": "",
     "commands": [
         {
@@ -1381,6 +1381,46 @@
                         }
                     ]
                 },
+                {
+                    "name": "session",
+                    "label": "[[existingSession.label]]",
+                    "description": "[[existingSession.description]]",
+                    "type": "SESSION",
+                    "defaultValue": {
+                        "sessionName": {
+                            "string": "Default",
+                            "type": "STRING"
+                        },
+                        "type": "SESSION"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "SESSION_OBJECT"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "getCurrentWorksheetName",
+            "label": "[[GetCurrentWorksheetName.label]]",
+            "description": "[[GetCurrentWorksheetName.description]]",
+            "nodeLabel": "[[GetCurrentWorksheetName.node_label]]",
+            "allowedAgentTargets": [
+                "WINDOWS"
+            ],
+            "minimumControlRoomVersion": "8750",
+            "minimumBotAgentVersion": "20.11",
+            "mainClass": "com.davita.botcommand.excel.commands.GetCurrentWorksheetNameCommand",
+            "icon": "excel-icon.svg",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "[[GetCurrentWorksheetName.return.label]]",
+            "returnRequired": true,
+            "attributes": [
                 {
                     "name": "session",
                     "label": "[[existingSession.label]]",

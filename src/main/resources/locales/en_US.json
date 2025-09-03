@@ -376,5 +376,10 @@
   "GoToNextEmptyCell.dir.left": "Left",
   "GoToNextEmptyCell.dir.right": "Right",
   "GoToNextEmptyCell.dir.up": "Up",
-  "GoToNextEmptyCell.dir.down": "Down"
+  "GoToNextEmptyCell.dir.down": "Down",
+
+  "GetCurrentWorksheetName.label": "Get current worksheet name",
+  "GetCurrentWorksheetName.node_label": "from workbook| - {{session}}",
+  "GetCurrentWorksheetName.description": "Retrieves the name of the current worksheet and assigns it to a string variable.",
+  "GetCurrentWorksheetName.return.label": "Assign the output to variable"
 }
