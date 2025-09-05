@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250903-125904",
-    "codeVersion": "0.0.1-20250903-125904",
+    "packageVersion": "0.0.1-20250905-114007",
+    "codeVersion": "0.0.1-20250905-114007",
     "author": "",
     "commands": [
         {
@@ -2585,6 +2585,345 @@
                     "rules": [
                         {
                             "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "session",
+                    "label": "[[existingSession.label]]",
+                    "description": "[[existingSession.description]]",
+                    "type": "SESSION",
+                    "defaultValue": {
+                        "sessionName": {
+                            "string": "Default",
+                            "type": "STRING"
+                        },
+                        "type": "SESSION"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "SESSION_OBJECT"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "sortWorksheetOrTable",
+            "label": "[[SortWorksheetOrTable.label]]",
+            "description": "[[SortWorksheetOrTable.description]]",
+            "nodeLabel": "[[SortWorksheetOrTable.node_label]]",
+            "allowedAgentTargets": [
+                "WINDOWS"
+            ],
+            "minimumControlRoomVersion": "8750",
+            "minimumBotAgentVersion": "20.11",
+            "mainClass": "com.davita.botcommand.excel.commands.SortWorksheetOrTableCommand",
+            "icon": "excel-icon.svg",
+            "returns": [
+                {
+                    "type": "UNDEFINED",
+                    "subtype": "ANY"
+                }
+            ],
+            "attributes": [
+                {
+                    "name": "mode",
+                    "label": "[[SortWorksheetOrTable.mode.label]]",
+                    "description": "[[SortWorksheetOrTable.mode.description]]",
+                    "type": "SELECT",
+                    "defaultValue": {
+                        "string": "TABLE",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "SELECT_MODES"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "[[SortWorksheetOrTable.mode.table.label]]",
+                            "value": "TABLE",
+                            "attributes": [
+                                {
+                                    "name": "tableName",
+                                    "label": "[[SortWorksheetOrTable.table.name.label]]",
+                                    "description": "[[SortWorksheetOrTable.table.name.description]]",
+                                    "type": "TEXT",
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "tableColSelector",
+                                    "label": "[[SortWorksheetOrTable.table.colSelector.label]]",
+                                    "description": "[[SortWorksheetOrTable.table.colSelector.description]]",
+                                    "type": "SELECT",
+                                    "defaultValue": {
+                                        "string": "BY_NAME",
+                                        "type": "STRING"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        },
+                                        {
+                                            "name": "SELECT_MODES"
+                                        }
+                                    ],
+                                    "options": [
+                                        {
+                                            "label": "[[SortWorksheetOrTable.table.colByName.label]]",
+                                            "value": "BY_NAME",
+                                            "attributes": [
+                                                {
+                                                    "name": "tableColumnName",
+                                                    "label": "[[SortWorksheetOrTable.table.colName.label]]",
+                                                    "description": "[[SortWorksheetOrTable.table.colName.description]]",
+                                                    "type": "TEXT",
+                                                    "rules": [
+                                                        {
+                                                            "name": "NOT_EMPTY"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "[[SortWorksheetOrTable.table.colByIndex.label]]",
+                                            "value": "BY_INDEX",
+                                            "attributes": [
+                                                {
+                                                    "name": "tableColumnIndexOneBased",
+                                                    "label": "[[SortWorksheetOrTable.table.colIndex.label]]",
+                                                    "description": "[[SortWorksheetOrTable.table.colIndex.description]]",
+                                                    "type": "NUMBER",
+                                                    "rules": [
+                                                        {
+                                                            "name": "NOT_EMPTY"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "label": "[[SortWorksheetOrTable.mode.worksheet.label]]",
+                            "value": "WORKSHEET",
+                            "attributes": [
+                                {
+                                    "name": "sheetName",
+                                    "label": "[[SortWorksheetOrTable.ws.name.label]]",
+                                    "description": "[[SortWorksheetOrTable.ws.name.description]]",
+                                    "type": "TEXT",
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "wsRangeMode",
+                                    "label": "[[SortWorksheetOrTable.ws.rangeMode.label]]",
+                                    "description": "[[SortWorksheetOrTable.ws.rangeMode.description]]",
+                                    "type": "SELECT",
+                                    "defaultValue": {
+                                        "string": "ALL",
+                                        "type": "STRING"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ],
+                                    "options": [
+                                        {
+                                            "label": "[[SortWorksheetOrTable.ws.rangeAll.label]]",
+                                            "value": "ALL"
+                                        },
+                                        {
+                                            "label": "[[SortWorksheetOrTable.ws.rangeSpecific.label]]",
+                                            "value": "SPECIFIC",
+                                            "attributes": [
+                                                {
+                                                    "name": "wsRangeA1",
+                                                    "label": "[[SortWorksheetOrTable.ws.rangeText.label]]",
+                                                    "description": "[[SortWorksheetOrTable.ws.rangeText.description]]",
+                                                    "type": "TEXT",
+                                                    "rules": [
+                                                        {
+                                                            "name": "NOT_EMPTY"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "wsColSelector",
+                                    "label": "[[SortWorksheetOrTable.ws.colSelector.label]]",
+                                    "description": "[[SortWorksheetOrTable.ws.colSelector.description]]",
+                                    "type": "SELECT",
+                                    "defaultValue": {
+                                        "string": "BY_NAME",
+                                        "type": "STRING"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        },
+                                        {
+                                            "name": "SELECT_MODES"
+                                        }
+                                    ],
+                                    "options": [
+                                        {
+                                            "label": "[[SortWorksheetOrTable.ws.colByName.label]]",
+                                            "value": "BY_NAME",
+                                            "attributes": [
+                                                {
+                                                    "name": "wsColumnName",
+                                                    "label": "[[SortWorksheetOrTable.ws.colName.label]]",
+                                                    "description": "[[SortWorksheetOrTable.ws.colName.description]]",
+                                                    "type": "TEXT",
+                                                    "rules": [
+                                                        {
+                                                            "name": "NOT_EMPTY"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "[[SortWorksheetOrTable.ws.colByIndex.label]]",
+                                            "value": "BY_INDEX",
+                                            "attributes": [
+                                                {
+                                                    "name": "wsColumnIndexOneBased",
+                                                    "label": "[[SortWorksheetOrTable.ws.colIndex.label]]",
+                                                    "description": "[[SortWorksheetOrTable.ws.colIndex.description]]",
+                                                    "type": "NUMBER",
+                                                    "rules": [
+                                                        {
+                                                            "name": "NOT_EMPTY"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "wsHasHeader",
+                                    "label": "[[SortWorksheetOrTable.ws.hasHeader.label]]",
+                                    "description": "[[SortWorksheetOrTable.ws.hasHeader.description]]",
+                                    "type": "CHECKBOX",
+                                    "defaultValue": {
+                                        "boolean": true,
+                                        "type": "BOOLEAN"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "sortType",
+                    "label": "[[SortWorksheetOrTable.sortType.label]]",
+                    "description": "[[SortWorksheetOrTable.sortType.description]]",
+                    "type": "SELECT",
+                    "defaultValue": {
+                        "string": "TEXT",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "SELECT_MODES"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "[[SortWorksheetOrTable.sortType.number.label]]",
+                            "value": "NUMBER",
+                            "attributes": [
+                                {
+                                    "name": "numberOrder",
+                                    "label": "[[SortWorksheetOrTable.order.num.label]]",
+                                    "description": "[[SortWorksheetOrTable.order.num.description]]",
+                                    "type": "SELECT",
+                                    "defaultValue": {
+                                        "string": "ASC",
+                                        "type": "STRING"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ],
+                                    "options": [
+                                        {
+                                            "label": "[[SortWorksheetOrTable.order.num.asc]]",
+                                            "value": "ASC"
+                                        },
+                                        {
+                                            "label": "[[SortWorksheetOrTable.order.num.desc]]",
+                                            "value": "DESC"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "label": "[[SortWorksheetOrTable.sortType.text.label]]",
+                            "value": "TEXT",
+                            "attributes": [
+                                {
+                                    "name": "textOrder",
+                                    "label": "[[SortWorksheetOrTable.order.txt.label]]",
+                                    "description": "[[SortWorksheetOrTable.order.txt.description]]",
+                                    "type": "SELECT",
+                                    "defaultValue": {
+                                        "string": "ASC",
+                                        "type": "STRING"
+                                    },
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ],
+                                    "options": [
+                                        {
+                                            "label": "[[SortWorksheetOrTable.order.txt.asc]]",
+                                            "value": "ASC"
+                                        },
+                                        {
+                                            "label": "[[SortWorksheetOrTable.order.txt.desc]]",
+                                            "value": "DESC"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },

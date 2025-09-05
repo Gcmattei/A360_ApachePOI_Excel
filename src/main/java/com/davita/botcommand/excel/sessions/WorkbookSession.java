@@ -318,6 +318,7 @@ public class WorkbookSession implements CloseableSessionObject {
             throw new IOException("E-EXISTS: Destination already exists: " + newTarget + "; pass overwrite=true to replace.");
         }
 
+        setReadOnly(false); // Save as command always set the session to read-write.
         switchLockTo(newPath);
         saveChanges();
     }
