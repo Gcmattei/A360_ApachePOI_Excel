@@ -49,7 +49,7 @@ public class GetWorksheetAsTable {
             @Idx(index = "1.2.1", type = AttributeType.TEXT)
             @Pkg(label = "[[GetWorksheetAsTable.sheetName.label]]",
                     description = "[[GetWorksheetAsTable.sheetName.description]]")
-            String sheetName,
+            @NotEmpty String sheetName,
 
             // Area selection: entire sheet or A1 range
             @Idx(index = "2", type = AttributeType.SELECT, options = {
@@ -64,7 +64,7 @@ public class GetWorksheetAsTable {
             @Idx(index = "2.2.1", type = AttributeType.TEXT)
             @Pkg(label = "[[GetWorksheetAsTable.rangeA1.label]]",
                     description = "[[GetWorksheetAsTable.rangeA1.description]]")
-            String rangeA1,
+            @NotEmpty String rangeA1,
 
             // Rows selection: all or numeric window (1-based)
             @Idx(index = "3", type = AttributeType.SELECT, options = {
@@ -79,12 +79,12 @@ public class GetWorksheetAsTable {
             @Idx(index = "3.2.1", type = AttributeType.NUMBER)
             @Pkg(label = "[[GetWorksheetAsTable.firstRow.label]]",
                     description = "[[GetWorksheetAsTable.firstRow.description]]")
-            @NotEmpty Double firstRowOneBased,
+            Double firstRowOneBased,
 
             @Idx(index = "3.2.2", type = AttributeType.NUMBER)
             @Pkg(label = "[[GetWorksheetAsTable.lastRow.label]]",
                     description = "[[GetWorksheetAsTable.lastRow.description]]")
-            @NotEmpty Double lastRowOneBased,
+            Double lastRowOneBased,
 
             // Header and read mode
             @Idx(index = "4", type = AttributeType.CHECKBOX)
@@ -198,6 +198,12 @@ public class GetWorksheetAsTable {
 
             if ("Range".equalsIgnoreCase(rowsOption)) {
                 // Validate Double inputs and convert to integers (must be whole, 1-based)
+                if (firstRowOneBased == null || firstRowOneBased <= 1) {
+                    firstRowOneBased = 1.0;
+                }
+                if (lastRowOneBased == null || lastRowOneBased >= dataLast - dataStartBase) {
+                    lastRowOneBased = (double) dataLast - dataStartBase;
+                }
                 int relFirst = toRowIndex("First row", firstRowOneBased);
                 int relLast  = toRowIndex("Last row",  lastRowOneBased);
                 if (relLast < relFirst) {
@@ -246,7 +252,7 @@ public class GetWorksheetAsTable {
 
     // ---------- Helpers ----------
 
-    private int toRowIndex(String name, Double value) {
+    public static int toRowIndex(String name, Double value) {
         if (value == null) {
             throw new BotCommandException(name + " is required when Rows=Range.");
         }
@@ -264,7 +270,7 @@ public class GetWorksheetAsTable {
         return value.intValue();
     }
 
-    private int calculateMaxColumns(Sheet sheet, int firstRowNum, int lastRowNum) {
+    public static int calculateMaxColumns(Sheet sheet, int firstRowNum, int lastRowNum) {
         int maxColumns = 0;
         for (int r = firstRowNum; r <= lastRowNum; r++) {
             Row row = sheet.getRow(r);
@@ -276,7 +282,7 @@ public class GetWorksheetAsTable {
         return maxColumns;
     }
 
-    private List<Schema> buildHeadersInArea(Sheet sheet, boolean hasHeader, int headerRowIndex,
+    public static List<Schema> buildHeadersInArea(Sheet sheet, boolean hasHeader, int headerRowIndex,
                                             int firstCol, int columnCount, String readOption, DataFormatter  formatter, FormulaEvaluator evaluator) {
         List<Schema> headers = new ArrayList<>();
         if (columnCount <= 0) return headers;
@@ -308,45 +314,14 @@ public class GetWorksheetAsTable {
         return headers;
     }
 
-    private Object readCellValue(Cell cell, String readOption) {
-        if (cell == null) return null;
-        if ("visible".equalsIgnoreCase(readOption)) {
-            DataFormatter df = new DataFormatter();
-            return df.formatCellValue(cell);
-        } else {
-            return cell.getNumericCellValue();
-        }
-    }
-
-    private Object readCachedFormulaValue(Cell cell, String readOption) {
-        if ("visible".equalsIgnoreCase(readOption)) {
-            DataFormatter formatter = new DataFormatter();
-            Workbook workbook = cell.getSheet().getWorkbook();
-            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-            return formatter.formatCellValue(cell, evaluator);
-        } else {
-            return cell.getCellFormula();
-        }
-    }
-
-    private String asString(Cell cell) {
-        if (cell == null) return null;
-        try {
-            cell.setCellType(CellType.STRING);
-            return cell.getStringCellValue();
-        } catch (Exception e) {
-            return cell.toString();
-        }
-    }
-
     // Visible text using DataFormatter + FormulaEvaluator (mirrors user-visible content)
-    private String readVisible(Cell cell, DataFormatter  formatter, FormulaEvaluator evaluator) {
+    public static String readVisible(Cell cell, DataFormatter  formatter, FormulaEvaluator evaluator) {
         if (cell == null) return "";
         return formatter.formatCellValue(cell, evaluator);
     }
 
     // Underlying value (number/boolean/string/formula-as-result or formula text)
-    private Object readRaw(Cell cell) {
+    public static Object readRaw(Cell cell) {
         if (cell == null) return null;
         switch (cell.getCellType()) {
             case STRING:

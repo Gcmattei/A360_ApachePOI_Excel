@@ -60,6 +60,9 @@ public final class GetWorksheetAsTableCommand implements BotCommand {
               throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","sheetName", "String", parameters.get("sheetName").get().getClass().getSimpleName()));
             }
           }
+          if(convertedParameters.get("sheetName") == null) {
+            throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","sheetName"));
+          }
 
 
         } break;
@@ -87,6 +90,9 @@ public final class GetWorksheetAsTableCommand implements BotCommand {
             if(convertedParameters.get("rangeA1") !=null && !(convertedParameters.get("rangeA1") instanceof String)) {
               throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","rangeA1", "String", parameters.get("rangeA1").get().getClass().getSimpleName()));
             }
+          }
+          if(convertedParameters.get("rangeA1") == null) {
+            throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","rangeA1"));
           }
 
 
@@ -116,18 +122,12 @@ public final class GetWorksheetAsTableCommand implements BotCommand {
               throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","firstRowOneBased", "Double", parameters.get("firstRowOneBased").get().getClass().getSimpleName()));
             }
           }
-          if(convertedParameters.get("firstRowOneBased") == null) {
-            throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","firstRowOneBased"));
-          }
 
           if(parameters.containsKey("lastRowOneBased") && parameters.get("lastRowOneBased") != null && parameters.get("lastRowOneBased").get() != null) {
             convertedParameters.put("lastRowOneBased", parameters.get("lastRowOneBased").get());
             if(convertedParameters.get("lastRowOneBased") !=null && !(convertedParameters.get("lastRowOneBased") instanceof Double)) {
               throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","lastRowOneBased", "Double", parameters.get("lastRowOneBased").get().getClass().getSimpleName()));
             }
-          }
-          if(convertedParameters.get("lastRowOneBased") == null) {
-            throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","lastRowOneBased"));
           }
 
 

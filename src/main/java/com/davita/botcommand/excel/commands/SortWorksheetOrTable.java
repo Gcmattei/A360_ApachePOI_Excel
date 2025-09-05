@@ -178,14 +178,14 @@ public class SortWorksheetOrTable {
                 if (isBlank(tableName)) {
                     throw new BotCommandException("Table name is required.");
                 }
+
                 AreaReference ar = TableRange.getTableArea((XSSFWorkbook) wb, tableName.trim());
                 if (ar == null) throw new BotCommandException("Table not found: " + tableName);
                 CellReference tl = ar.getFirstCell();
                 CellReference br = ar.getLastCell();
                 if (tl == null || br == null) throw new BotCommandException("Invalid table area for: " + tableName);
 
-                XSSFSheet xsheet = resolveSheetForTable((XSSFWorkbook) wb, tableName, tl);
-                sheet = xsheet;
+                sheet = resolveSheetForTable((XSSFWorkbook) wb, tableName, tl);
 
                 headerRow0 = tl.getRow();
                 dataStartRow0 = headerRow0 + 1;
@@ -426,7 +426,7 @@ public class SortWorksheetOrTable {
     }
 
     // Resolve table's sheet (tolerates null sheet name on CellReference)
-    private XSSFSheet resolveSheetForTable(XSSFWorkbook wb, String tableName, CellReference tl) {
+    public static XSSFSheet resolveSheetForTable(XSSFWorkbook wb, String tableName, CellReference tl) {
         String tlSheet = (tl != null) ? tl.getSheetName() : null;
         if (tlSheet != null) {
             XSSFSheet s = wb.getSheet(tlSheet);
