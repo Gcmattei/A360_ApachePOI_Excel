@@ -24,14 +24,11 @@ import com.automationanywhere.commandsdk.model.DataType;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.AreaReference;
 import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 // IMPORTANT: make the following helpers from GetWorksheetAsTable public static (or move to a shared utils class)
 // so they can be reused here via static import:
@@ -40,12 +37,12 @@ import java.util.Map;
 //   buildHeadersInArea(Sheet, boolean, int, int, int, String, DataFormatter, FormulaEvaluator)
 //   readVisible(Cell, DataFormatter, FormulaEvaluator)
 //   readRaw(Cell)
-import static com.davita.botcommand.excel.commands.GetWorksheetAsTable.toRowIndex;
-import static com.davita.botcommand.excel.commands.GetWorksheetAsTable.calculateMaxColumns;
-import static com.davita.botcommand.excel.commands.GetWorksheetAsTable.buildHeadersInArea;
-import static com.davita.botcommand.excel.commands.GetWorksheetAsTable.readVisible;
-import static com.davita.botcommand.excel.commands.GetWorksheetAsTable.readRaw;
-import static com.davita.botcommand.excel.commands.SortWorksheetOrTable.resolveSheetForTable;
+import static com.davita.botcommand.excel.commands.dataOperations.GetWorksheetAsTable.toRowIndex;
+import static com.davita.botcommand.excel.commands.dataOperations.GetWorksheetAsTable.calculateMaxColumns;
+import static com.davita.botcommand.excel.commands.dataOperations.GetWorksheetAsTable.buildHeadersInArea;
+import static com.davita.botcommand.excel.commands.dataOperations.GetWorksheetAsTable.readVisible;
+import static com.davita.botcommand.excel.commands.dataOperations.GetWorksheetAsTable.readRaw;
+import static com.davita.botcommand.excel.commands.dataOperations.SortWorksheetOrTable.resolveSheetForTable;
 
 @BotCommand(commandType = CommandType.Iterator)
 @CommandPkg(
@@ -163,9 +160,9 @@ public class IterateWorksheetOrTable {
     private String readMode;
 
     @Idx(index = "2.1.1", type = AttributeType.HELP)
-    @Pkg(label = "", description = "[[IterateWorksheetOrTable.read.visible.description]]",default_value_type = DataType.STRING) String visibleHelp;
+    @Pkg(description = "[[IterateWorksheetOrTable.read.visible.description]]",default_value_type = DataType.STRING) String visibleHelp;
     @Idx(index = "2.2.1", type = AttributeType.HELP)
-    @Pkg(label = "", description = "[[IterateWorksheetOrTable.read.value.description]]",default_value_type = DataType.STRING) String valueHelp;
+    @Pkg(description = "[[IterateWorksheetOrTable.read.value.description]]",default_value_type = DataType.STRING) String valueHelp;
 
     // Session
     @Idx(index = "3", type = AttributeType.SESSION)
@@ -206,12 +203,9 @@ public class IterateWorksheetOrTable {
 
         // Build a Record for currentRow0
         List<Value> fields = new ArrayList<>(recordSchema.size());
-//        List<Value> fields = new LinkedHashMap<>();
         for (int c = firstCol0; c <= lastCol0; c++) {
-            String colName = recordSchema.get(c - firstCol0).getName();
             Value v = readCellAsValue(currentRow0, c);
             fields.add(v);
-//            fields.put(colName, v);
         }
 
         Record rec = new Record();

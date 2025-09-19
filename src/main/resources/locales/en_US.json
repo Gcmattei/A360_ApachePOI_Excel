@@ -5,6 +5,13 @@
   "existingSession.label": "Session name",
   "existingSession.description": "The name you gave the session when you opened it.",
 
+  "Group.sessionManagement.label": "Session Management",
+  "Group.workbookOperations.label": "Workbook Operations",
+  "Group.worksheetOperations.label": "Worksheet Operations",
+  "Group.cellOperations.label": "Cell Operations",
+  "Group.dataOperations.label": "Data Operations",
+  "Group.utilityOperations.label": "Utility Operations",
+
   "CreateWorkbook.label": "Create workbook",
   "CreateWorkbook.node_label": "{{filePath}} - {{returnTo}}",
   "CreateWorkbook.description": "Creates a new Excel workbook at the specified path",
@@ -313,7 +320,7 @@
   "GetCellValue.read.value.label": "Read cell value",
   "GetCellValue.read.value.description": "e.g. 50% will be read as 50",
 
-  "DeleteCellRange.label": "Delete Cell/Range",
+  "DeleteCellRange.label": "Delete cell/range",
   "DeleteCellRange.node_label": "{{cellOrRangeA1}} |to {{input}} |- {{session}}",
   "DeleteCellRange.description": "Deletes the active cell or a specific cell from the current worksheet.",
   "DeleteCellRange.target.label": "Cell option",
