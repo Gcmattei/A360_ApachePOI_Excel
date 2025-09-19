@@ -10,6 +10,7 @@ import com.automationanywhere.commandsdk.model.DataType;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#close",
         group_label = "[[Group.sessionManagement.label]]",
         name = "closeWorkbook",
         label = "[[CloseWorkbook.label]]",

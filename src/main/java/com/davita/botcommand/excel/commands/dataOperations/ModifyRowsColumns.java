@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.*;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#insertdelete-rowscolumns",
         group_label = "[[Group.dataOperations.label]]",
         name = "modifyRowsColumns",
         label = "[[ModifyRowsColumns.label]]",

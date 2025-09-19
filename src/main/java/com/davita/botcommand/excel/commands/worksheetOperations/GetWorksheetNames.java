@@ -17,6 +17,7 @@ import java.util.List;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-worksheet-names",
         group_label = "[[Group.worksheetOperations.label]]",
         name = "getWorksheetNames",
         label = "[[GetWorksheetNames.label]]",

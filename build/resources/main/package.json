@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250919-121049",
-    "codeVersion": "0.0.1-20250919-121049",
+    "packageVersion": "0.0.1-20250919-130738",
+    "codeVersion": "0.0.1-20250919-130738",
     "author": "",
     "commands": [
         {
@@ -13,6 +13,7 @@
             "label": "[[DeleteCellRange.label]]",
             "description": "[[DeleteCellRange.description]]",
             "nodeLabel": "[[DeleteCellRange.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#delete-cellrange",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -122,6 +123,7 @@
             "label": "[[GetCellAddress.label]]",
             "description": "[[GetCellAddress.description]]",
             "nodeLabel": "[[GetCellAddress.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-cell-address",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -216,6 +218,7 @@
             "label": "[[GetCellValue.label]]",
             "description": "[[GetCellValue.description]]",
             "nodeLabel": "[[GetCellValue.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-single-cell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -336,6 +339,7 @@
             "label": "[[SetActiveCell.label]]",
             "description": "[[SetActiveCell.description]]",
             "nodeLabel": "[[SetActiveCell.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#go-to-cell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -468,6 +472,7 @@
             "label": "[[SetCell.label]]",
             "description": "[[SetCell.description]]",
             "nodeLabel": "[[SetCell.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#set-cellrange",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -555,6 +560,7 @@
             "label": "[[FilterWorksheetOrTable.label]]",
             "description": "[[FilterWorksheetOrTable.description]]",
             "nodeLabel": "[[FilterWorksheetOrTable.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#filter",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1068,6 +1074,7 @@
             "label": "[[GetWorksheetAsTable.label]]",
             "description": "[[GetWorksheetAsTable.description]]",
             "nodeLabel": "[[GetWorksheetAsTable.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-worksheet-as-data-table",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1286,6 +1293,7 @@
             "label": "[[ModifyRowsColumns.label]]",
             "description": "[[ModifyRowsColumns.description]]",
             "nodeLabel": "[[ModifyRowsColumns.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#insertdelete-rowscolumns",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1460,6 +1468,7 @@
             "label": "[[SortWorksheetOrTable.label]]",
             "description": "[[SortWorksheetOrTable.description]]",
             "nodeLabel": "[[SortWorksheetOrTable.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#sort",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1800,6 +1809,7 @@
             "label": "[[WriteTableToWorksheet.label]]",
             "description": "[[WriteTableToWorksheet.description]]",
             "nodeLabel": "[[WriteTableToWorksheet.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#write-from-data-table",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1917,6 +1927,7 @@
             "label": "[[CloseWorkbook.label]]",
             "description": "[[CloseWorkbook.description]]",
             "nodeLabel": "[[CloseWorkbook.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#close",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1975,6 +1986,7 @@
             "label": "[[OpenWorkbook.label]]",
             "description": "[[OpenWorkbook.description]]",
             "nodeLabel": "[[OpenWorkbook.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#open",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2043,6 +2055,7 @@
             "label": "[[FindNextEmptyCell.label]]",
             "description": "[[FindNextEmptyCell.description]]",
             "nodeLabel": "[[FindNextEmptyCell.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#find-next-empty-cell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2147,6 +2160,7 @@
             "label": "[[FindTextInSheet.label]]",
             "description": "[[FindTextInSheet.description]]",
             "nodeLabel": "[[FindTextInSheet.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#find",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2344,6 +2358,7 @@
             "label": "[[GoToNextEmptyCell.label]]",
             "description": "[[GoToNextEmptyCell.description]]",
             "nodeLabel": "[[GoToNextEmptyCell.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#go-to-next-empty-cell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2458,6 +2473,7 @@
             "label": "[[CreateWorkbook.label]]",
             "description": "[[CreateWorkbook.description]]",
             "nodeLabel": "[[CreateWorkbook.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#create-workbook",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2517,6 +2533,7 @@
             "label": "[[SaveWorkbook.label]]",
             "description": "[[SaveWorkbook.description]]",
             "nodeLabel": "[[SaveWorkbook.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#save-workbook",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2560,6 +2577,7 @@
             "label": "[[SaveWorkbookAs.label]]",
             "description": "[[SaveWorkbookAs.description]]",
             "nodeLabel": "[[SaveWorkbookAs.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#save-as",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2635,6 +2653,7 @@
             "label": "[[CreateWorksheet.label]]",
             "description": "[[CreateWorksheet.description]]",
             "nodeLabel": "[[CreateWorksheet.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#create-worksheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2689,6 +2708,7 @@
             "label": "[[DeleteWorksheet.label]]",
             "description": "[[DeleteWorksheet.description]]",
             "nodeLabel": "[[DeleteWorksheet.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#delete-worksheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2787,6 +2807,7 @@
             "label": "[[GetCurrentWorksheetName.label]]",
             "description": "[[GetCurrentWorksheetName.description]]",
             "nodeLabel": "[[GetCurrentWorksheetName.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#switch-to-sheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2828,6 +2849,7 @@
             "label": "[[GetRowCount.label]]",
             "description": "[[GetRowCount.description]]",
             "nodeLabel": "[[GetRowCount.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-number-of-rows",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2949,6 +2971,7 @@
             "label": "[[GetWorksheetNames.label]]",
             "description": "[[GetWorksheetNames.description]]",
             "nodeLabel": "[[GetWorksheetNames.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-worksheet-names",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2990,6 +3013,7 @@
             "label": "[[RenameWorksheet.label]]",
             "description": "[[RenameWorksheet.description]]",
             "nodeLabel": "[[RenameWorksheet.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#rename-worksheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -3095,6 +3119,7 @@
             "label": "[[SwitchToSheet.label]]",
             "description": "[[SwitchToSheet.description]]",
             "nodeLabel": "[[SwitchToSheet.node_label]]",
+            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#switch-to-sheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],

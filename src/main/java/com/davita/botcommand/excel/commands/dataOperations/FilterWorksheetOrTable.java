@@ -25,6 +25,7 @@ import java.util.Objects;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#filter",
         group_label = "[[Group.dataOperations.label]]",
         name = "filterWorksheetOrTable",
         label = "[[FilterWorksheetOrTable.label]]",

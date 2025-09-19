@@ -19,6 +19,7 @@ import org.apache.poi.ss.util.CellReference;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#go-to-cell",
         group_label = "[[Group.cellOperations.label]]",
         name = "setActiveCell",
         label = "[[SetActiveCell.label]]",

@@ -16,6 +16,7 @@ import org.apache.poi.ss.util.CellAddress;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#go-to-next-empty-cell",
         group_label = "[[Group.utilityOperations.label]]",
         name = "goToNextEmptyCell",
         label = "[[GoToNextEmptyCell.label]]",

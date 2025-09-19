@@ -28,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFEvaluationWorkbook;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#set-cellrange",
         group_label = "[[Group.cellOperations.label]]",
         name = "setCellFormula",
         label = "[[SetCell.label]]",

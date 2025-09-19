@@ -15,6 +15,7 @@ import org.apache.poi.ss.util.CellReference;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#delete-cellrange",
         group_label = "[[Group.cellOperations.label]]",
         name = "deleteCellRange",
         label = "[[DeleteCellRange.label]]",

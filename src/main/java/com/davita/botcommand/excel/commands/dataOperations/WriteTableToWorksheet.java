@@ -18,6 +18,7 @@ import java.util.List;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#write-from-data-table",
         group_label = "[[Group.dataOperations.label]]",
         name = "writeTableToWorksheet",
         label = "[[WriteTableToWorksheet.label]]",

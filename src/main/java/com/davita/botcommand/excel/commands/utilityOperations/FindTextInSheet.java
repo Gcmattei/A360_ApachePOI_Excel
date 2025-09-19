@@ -21,6 +21,7 @@ import java.util.Locale;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#find",
         group_label = "[[Group.utilityOperations.label]]",
         name = "findTextInSheet",
         label = "[[FindTextInSheet.label]]",

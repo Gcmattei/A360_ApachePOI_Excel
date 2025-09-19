@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#delete-worksheet",
         group_label = "[[Group.worksheetOperations.label]]",
         name = "deleteWorksheet",
         label = "[[DeleteWorksheet.label]]",

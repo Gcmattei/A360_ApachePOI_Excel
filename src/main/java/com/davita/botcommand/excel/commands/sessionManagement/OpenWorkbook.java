@@ -20,6 +20,7 @@ import java.io.IOException;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#open",
         group_label = "[[Group.sessionManagement.label]]",
         name = "openWorkbook",
         label = "[[OpenWorkbook.label]]",

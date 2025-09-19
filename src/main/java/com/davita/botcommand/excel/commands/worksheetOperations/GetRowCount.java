@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-number-of-rows",
         group_label = "[[Group.worksheetOperations.label]]",
         name = "getRowCount",
         label = "[[GetRowCount.label]]",

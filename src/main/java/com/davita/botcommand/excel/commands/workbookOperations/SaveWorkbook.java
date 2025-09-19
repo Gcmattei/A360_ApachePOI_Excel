@@ -10,6 +10,7 @@ import com.automationanywhere.commandsdk.model.DataType;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#save-workbook",
         group_label = "[[Group.workbookOperations.label]]",
         name = "saveWorkbook",
         label = "[[SaveWorkbook.label]]",

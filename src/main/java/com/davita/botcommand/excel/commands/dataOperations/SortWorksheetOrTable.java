@@ -26,6 +26,7 @@ import java.util.*;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#sort",
         group_label = "[[Group.dataOperations.label]]",
         name = "sortWorksheetOrTable",
         label = "[[SortWorksheetOrTable.label]]",
