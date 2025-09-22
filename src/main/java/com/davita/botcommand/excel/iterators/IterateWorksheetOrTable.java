@@ -46,6 +46,7 @@ import static com.davita.botcommand.excel.commands.dataOperations.SortWorksheetO
 
 @BotCommand(commandType = CommandType.Iterator)
 @CommandPkg(
+        documentation_url = "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-IteratorOperations",
         name = "iterateWorksheetOrTable",
         label = "[[IterateWorksheetOrTable.label]]",
         node_label = "[[IterateWorksheetOrTable.node_label]]",

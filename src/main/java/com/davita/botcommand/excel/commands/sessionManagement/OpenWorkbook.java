@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @BotCommand
 @CommandPkg(
-        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#open",
+        documentation_url = "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Open",
         group_label = "[[Group.sessionManagement.label]]",
         name = "openWorkbook",
         label = "[[OpenWorkbook.label]]",

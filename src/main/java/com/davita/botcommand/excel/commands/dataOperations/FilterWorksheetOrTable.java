@@ -25,7 +25,7 @@ import java.util.Objects;
 
 @BotCommand
 @CommandPkg(
-        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#filter",
+        documentation_url = "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Filter",
         group_label = "[[Group.dataOperations.label]]",
         name = "filterWorksheetOrTable",
         label = "[[FilterWorksheetOrTable.label]]",

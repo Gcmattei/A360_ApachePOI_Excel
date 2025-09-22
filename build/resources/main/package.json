@@ -4,8 +4,8 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.1.0",
-    "codeVersion": "0.1.0",
+    "packageVersion": "0.1.1",
+    "codeVersion": "0.1.1",
     "author": "Gustavo Mattei",
     "commands": [
         {
@@ -13,7 +13,7 @@
             "label": "[[DeleteCellRange.label]]",
             "description": "[[DeleteCellRange.description]]",
             "nodeLabel": "[[DeleteCellRange.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#delete-cellrange",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-DeleteCell%2FRange",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -123,7 +123,7 @@
             "label": "[[GetCellAddress.label]]",
             "description": "[[GetCellAddress.description]]",
             "nodeLabel": "[[GetCellAddress.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-cell-address",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getcelladdress",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -218,7 +218,7 @@
             "label": "[[GetCellValue.label]]",
             "description": "[[GetCellValue.description]]",
             "nodeLabel": "[[GetCellValue.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-single-cell",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getsinglecell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -339,7 +339,7 @@
             "label": "[[SetActiveCell.label]]",
             "description": "[[SetActiveCell.description]]",
             "nodeLabel": "[[SetActiveCell.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#go-to-cell",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Gotocell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -472,7 +472,7 @@
             "label": "[[SetCell.label]]",
             "description": "[[SetCell.description]]",
             "nodeLabel": "[[SetCell.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#set-cellrange",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Setcell%2Frange",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -560,7 +560,7 @@
             "label": "[[FilterWorksheetOrTable.label]]",
             "description": "[[FilterWorksheetOrTable.description]]",
             "nodeLabel": "[[FilterWorksheetOrTable.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#filter",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Filter",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1074,7 +1074,7 @@
             "label": "[[GetWorksheetAsTable.label]]",
             "description": "[[GetWorksheetAsTable.description]]",
             "nodeLabel": "[[GetWorksheetAsTable.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-worksheet-as-data-table",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getworksheetasdatatable",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1293,7 +1293,7 @@
             "label": "[[ModifyRowsColumns.label]]",
             "description": "[[ModifyRowsColumns.description]]",
             "nodeLabel": "[[ModifyRowsColumns.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#insertdelete-rowscolumns",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Insert%2FDeleterows%2Fcolumns",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1468,7 +1468,7 @@
             "label": "[[SortWorksheetOrTable.label]]",
             "description": "[[SortWorksheetOrTable.description]]",
             "nodeLabel": "[[SortWorksheetOrTable.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#sort",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Sort",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1809,7 +1809,7 @@
             "label": "[[WriteTableToWorksheet.label]]",
             "description": "[[WriteTableToWorksheet.description]]",
             "nodeLabel": "[[WriteTableToWorksheet.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#write-from-data-table",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Writefromdatatable",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1927,7 +1927,7 @@
             "label": "[[CloseWorkbook.label]]",
             "description": "[[CloseWorkbook.description]]",
             "nodeLabel": "[[CloseWorkbook.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#close",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Close",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -1986,7 +1986,7 @@
             "label": "[[OpenWorkbook.label]]",
             "description": "[[OpenWorkbook.description]]",
             "nodeLabel": "[[OpenWorkbook.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#open",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Open",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2055,7 +2055,7 @@
             "label": "[[FindNextEmptyCell.label]]",
             "description": "[[FindNextEmptyCell.description]]",
             "nodeLabel": "[[FindNextEmptyCell.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#find-next-empty-cell",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Findnextemptycell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2160,7 +2160,7 @@
             "label": "[[FindTextInSheet.label]]",
             "description": "[[FindTextInSheet.description]]",
             "nodeLabel": "[[FindTextInSheet.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#find",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Find",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2358,7 +2358,7 @@
             "label": "[[GoToNextEmptyCell.label]]",
             "description": "[[GoToNextEmptyCell.description]]",
             "nodeLabel": "[[GoToNextEmptyCell.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#go-to-next-empty-cell",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Gotonextemptycell",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2473,7 +2473,7 @@
             "label": "[[CreateWorkbook.label]]",
             "description": "[[CreateWorkbook.description]]",
             "nodeLabel": "[[CreateWorkbook.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#create-workbook",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Createworkbook",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2533,7 +2533,7 @@
             "label": "[[SaveWorkbook.label]]",
             "description": "[[SaveWorkbook.description]]",
             "nodeLabel": "[[SaveWorkbook.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#save-workbook",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Saveworkbook",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2577,7 +2577,7 @@
             "label": "[[SaveWorkbookAs.label]]",
             "description": "[[SaveWorkbookAs.description]]",
             "nodeLabel": "[[SaveWorkbookAs.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#save-as",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Saveas",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2653,7 +2653,7 @@
             "label": "[[CreateWorksheet.label]]",
             "description": "[[CreateWorksheet.description]]",
             "nodeLabel": "[[CreateWorksheet.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#create-worksheet",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Createworksheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2708,7 +2708,7 @@
             "label": "[[DeleteWorksheet.label]]",
             "description": "[[DeleteWorksheet.description]]",
             "nodeLabel": "[[DeleteWorksheet.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#delete-worksheet",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Deleteworksheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2807,7 +2807,7 @@
             "label": "[[GetCurrentWorksheetName.label]]",
             "description": "[[GetCurrentWorksheetName.description]]",
             "nodeLabel": "[[GetCurrentWorksheetName.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#switch-to-sheet",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getcurrentworksheetname",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2849,7 +2849,7 @@
             "label": "[[GetRowCount.label]]",
             "description": "[[GetRowCount.description]]",
             "nodeLabel": "[[GetRowCount.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-number-of-rows",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getnumberofrows",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -2971,7 +2971,7 @@
             "label": "[[GetWorksheetNames.label]]",
             "description": "[[GetWorksheetNames.description]]",
             "nodeLabel": "[[GetWorksheetNames.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#get-worksheet-names",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getworksheetnames",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -3013,7 +3013,7 @@
             "label": "[[RenameWorksheet.label]]",
             "description": "[[RenameWorksheet.description]]",
             "nodeLabel": "[[RenameWorksheet.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#rename-worksheet",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Renameworksheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -3119,7 +3119,7 @@
             "label": "[[SwitchToSheet.label]]",
             "description": "[[SwitchToSheet.description]]",
             "nodeLabel": "[[SwitchToSheet.node_label]]",
-            "documentationUrl": "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#switch-to-sheet",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Switchtosheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],
@@ -3220,6 +3220,7 @@
             "label": "[[IterateWorksheetOrTable.label]]",
             "description": "[[IterateWorksheetOrTable.description]]",
             "nodeLabel": "[[IterateWorksheetOrTable.node_label]]",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-IteratorOperations",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],

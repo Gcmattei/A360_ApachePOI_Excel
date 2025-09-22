@@ -17,7 +17,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 @BotCommand
 @CommandPkg(
-        documentation_url = "https://github.com/Gcmattei/A360_ApachePOI_Excel/blob/main/docs/A360-Excel-Comprehensive-Docs.md#switch-to-sheet",
+        documentation_url = "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-Getcurrentworksheetname",
         group_label = "[[Group.worksheetOperations.label]]",
         name = "getCurrentWorksheetName",
         label = "[[GetCurrentWorksheetName.label]]",
