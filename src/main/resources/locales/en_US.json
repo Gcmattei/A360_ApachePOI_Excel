@@ -1,5 +1,5 @@
 {
-  "label": "Excel Operations",
+  "label": "Excel DaVita",
   "description": "Custom package for comprehensive Excel operations using Apache POI",
   "createSession.label": "Create Excel session",
   "existingSession.label": "Session name",

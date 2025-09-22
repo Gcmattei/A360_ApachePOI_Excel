@@ -4,9 +4,9 @@
     "description": "[[description]]",
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.0.1-20250919-130738",
-    "codeVersion": "0.0.1-20250919-130738",
-    "author": "",
+    "packageVersion": "0.1.0",
+    "codeVersion": "0.1.0",
+    "author": "Gustavo Mattei",
     "commands": [
         {
             "name": "deleteCellRange",
