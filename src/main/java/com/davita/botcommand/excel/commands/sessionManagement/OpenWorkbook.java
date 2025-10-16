@@ -61,51 +61,8 @@ public class OpenWorkbook {
             session = WorkbookSession.openWorkbook(filePath,password,readOnly);
         }
 
-//        File file = new File(filePath);
-//
-//        if (!file.exists() || !file.isFile()) {
-//            throw new BotCommandException(String.format("File not found: %s", filePath));
-//        }
-//
-//        String fileExtension = getFileExtension(filePath).toLowerCase();
-//
-//        Workbook workbook;
-//
-//        try (FileInputStream fis = new FileInputStream(file)) {
-//            switch (fileExtension) {
-//                case "xlsx":
-//                    workbook = new XSSFWorkbook(fis);
-//                    break;
-//                case "xls":
-//                    workbook = new HSSFWorkbook(fis);
-//                    break;
-//                default:
-//                    throw new BotCommandException(String.format("Unsupported file extension: %s", fileExtension));
-//            }
-//        } catch (IOException e) {
-//            throw new BotCommandException(String.format("Failed to open workbook: %s", e.getMessage()), e);
-//        }
-//
-//        WorkbookSession session = new WorkbookSession();
-//        session.setWorkbook(workbook);
-//        session.setFilePath(filePath);
-//        session.setReadOnly(readOnly);
-//        try {
-//            session.acquireLock();
-//        } catch (IOException ioe) {
-//            throw new BotCommandException("Failed to lock workbook file for session: " + ioe.getMessage(), ioe);
-//        }
-
         return SessionValue.builder()
                 .withSessionObject(session)
                 .build();
-    }
-
-    public static String getFileExtension(String fileName) {
-        int dotIdx = fileName.lastIndexOf('.');
-        if (dotIdx == -1 || dotIdx == fileName.length() - 1) {
-            return "";
-        }
-        return fileName.substring(dotIdx + 1);
     }
 }
