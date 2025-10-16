@@ -58,6 +58,9 @@ public final class SetCellCommand implements BotCommand {
               throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","cellOrRangeA1", "String", parameters.get("cellOrRangeA1").get().getClass().getSimpleName()));
             }
           }
+          if(convertedParameters.get("cellOrRangeA1") == null) {
+            throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","cellOrRangeA1"));
+          }
 
 
         } break;
@@ -70,9 +73,6 @@ public final class SetCellCommand implements BotCommand {
       if(convertedParameters.get("input") !=null && !(convertedParameters.get("input") instanceof String)) {
         throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","input", "String", parameters.get("input").get().getClass().getSimpleName()));
       }
-    }
-    if(convertedParameters.get("input") == null) {
-      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","input"));
     }
 
     if(parameters.containsKey("session") && parameters.get("session") != null) {

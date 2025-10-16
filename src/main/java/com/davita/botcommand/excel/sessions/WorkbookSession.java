@@ -314,6 +314,12 @@ public class WorkbookSession implements CloseableSessionObject {
             throw new IOException("E-PATH-UNSET: Destination path is not set; provide a non-empty path.");
         }
         Path newTarget = Path.of(newPath);
+
+        Path parent = newTarget.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+
         if (Files.exists(newTarget) && !overwrite && Files.isRegularFile(newTarget)) {
             throw new IOException("E-EXISTS: Destination already exists: " + newTarget + "; pass overwrite=true to replace.");
         }

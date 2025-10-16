@@ -1,6 +1,8 @@
 {
   "label": "Excel DaVita",
   "description": "Custom package for comprehensive Excel operations using Apache POI",
+  "sessionLabel": "DaVita Excel Session",
+  "sessionDescription": "Session used by the DaVita Excel package.",
   "createSession.label": "Create Excel session",
   "existingSession.label": "Session name",
   "existingSession.description": "The name you gave the session when you opened it.",
@@ -13,7 +15,7 @@
   "Group.utilityOperations.label": "Utility Operations",
 
   "CreateWorkbook.label": "Create workbook",
-  "CreateWorkbook.node_label": "{{filePath}} - {{returnTo}}",
+  "CreateWorkbook.node_label": "{{filePath}}| - {{returnTo}}",
   "CreateWorkbook.description": "Creates a new Excel workbook at the specified path",
   "CreateWorkbook.return_label": "Create Excel session",
   "CreateWorkbook.filePath.label": "File path",
@@ -181,7 +183,7 @@
   "ModifyRowsColumns.cols.target.description": "For single column e.g. B and for multiple columns e.g. B:D.",
 
   "GetWorksheetNames.label": "Get worksheet names",
-  "GetWorksheetNames.node_label": "from workbook",
+  "GetWorksheetNames.node_label": "from workbook - {{session}}",
   "GetWorksheetNames.description": "Retrieves the names of all the worksheets and assigns them to a list variable of string data type.",
   "GetWorksheetNames.return_label": "Assign the output to variable",
 
@@ -473,5 +475,25 @@
   "IterateWorksheetOrTable.read.visible.label": "Read visible text in cell",
   "IterateWorksheetOrTable.read.visible.description": "e.g. 50% will be read as 50%",
   "IterateWorksheetOrTable.read.value.label": "Read cell value",
-  "IterateWorksheetOrTable.read.value.description": "e.g. 50% will be read as 50"
+  "IterateWorksheetOrTable.read.value.description": "e.g. 50% will be read as 50",
+
+  "AppendRowToSheet.label": "Append row to sheet",
+  "AppendRowToSheet.node_label": "{{sheetName}} - {{session}}",
+  "AppendRowToSheet.description": "Opens an Excel file, appends a record to the specified sheet at the next available row and first data column, saves, and closes.",
+  "AppendRowToSheet.file.label": "Excel file path",
+  "AppendRowToSheet.file.description": "Local path to an .xlsx or .xls file.",
+  "AppendRowToSheet.sheet.label": "Sheet name",
+  "AppendRowToSheet.sheet.description": "Name of the worksheet where the row will be appended.",
+  "AppendRowToSheet.record.label": "Row to add",
+  "AppendRowToSheet.record.description": "Record variable whose fields will be written as cells starting at the first populated column.",
+
+  "AppendRecordToSheet.label": "Append record to sheet",
+  "AppendRecordToSheet.node_label": "{{sheetName}} - {{session}}",
+  "AppendRecordToSheet.description": "Opens the workbook via session, appends the Record at the next empty row starting at the first data column, saves, and closes.",
+  "AppendRecordToSheet.file.label": "Workbook file path",
+  "AppendRecordToSheet.file.description": "Path to an existing .xlsx or .xls file",
+  "AppendRecordToSheet.sheet.label": "Sheet name",
+  "AppendRecordToSheet.sheet.description": "Name of the worksheet where the row will be appended.",
+  "AppendRecordToSheet.record.label": "Row to add (Record)",
+  "AppendRecordToSheet.record.description": "Record fields are written left-to-right beginning at the first populated column."
 }

@@ -93,7 +93,7 @@ public class OpenWorkbook {
                 .build();
     }
 
-    private String getFileExtension(String fileName) {
+    public static String getFileExtension(String fileName) {
         int dotIdx = fileName.lastIndexOf('.');
         if (dotIdx == -1 || dotIdx == fileName.length() - 1) {
             return "";

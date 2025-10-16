@@ -52,13 +52,13 @@ public class SetCell {
             @Idx(index = "1.2.1", type = AttributeType.TEXT)
             @Pkg(label = "[[SetCell.cellOrRange.label]]",
                     description = "[[SetCell.cellOrRange.description]]")
-            String cellOrRangeA1,
+            @NotEmpty String cellOrRangeA1,
 
             // Input can be "=A1*2" (formula) or "42" / "hello" (raw value)
             @Idx(index = "2", type = AttributeType.TEXT)
             @Pkg(label = "[[SetCell.formula.label]]",
                     description = "[[SetCell.formula.description]]")
-            @NotEmpty String input,
+            String input,
 
             @Idx(index = "3", type = AttributeType.SESSION)
             @Pkg(label = "[[existingSession.label]]",
@@ -92,13 +92,6 @@ public class SetCell {
             throw new BotCommandException("Invalid target mode. Choose Active or Specific.");
         }
 
-        final boolean isFormula = input.trim().startsWith("="); // leading '=' means formula
-        final String payload = isFormula ? input.trim().substring(1) : input; // POI setCellFormula expects no '='
-
-        // Anchor cell for autofill
-        final int baseRow = region.getFirstRow();
-        final int baseCol = region.getFirstColumn();
-
         try {
             for (int r = region.getFirstRow(); r <= region.getLastRow(); r++) {
                 Row row = sheet.getRow(r);
@@ -107,19 +100,27 @@ public class SetCell {
                     Cell cell = row.getCell(c, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
                     cell.setBlank();
+                    if (input != null && !input.isEmpty()) {
+                        final boolean isFormula = input.trim().startsWith("="); // leading '=' means formula
+                        final String payload = isFormula ? input.trim().substring(1) : input; // POI setCellFormula expects no '='
 
-                    if (isFormula) {
-                        // Autofill: shift references by (r-baseRow, c-baseCol)
-                        String fForCell = translateFormulaForCell(payload, wb, sheet, baseRow, baseCol, r, c);
-                        cell.setCellFormula(fForCell);
-                    } else {
-                        // Raw value: try boolean/number, else write as string
-                        if (isBoolean(payload)) {
-                            cell.setCellValue(Boolean.parseBoolean(payload));
-                        } else if (isNumeric(payload)) {
-                            cell.setCellValue(Double.parseDouble(payload));
+                        // Anchor cell for autofill
+                        final int baseRow = region.getFirstRow();
+                        final int baseCol = region.getFirstColumn();
+
+                        if (isFormula) {
+                            // Autofill: shift references by (r-baseRow, c-baseCol)
+                            String fForCell = translateFormulaForCell(payload, wb, sheet, baseRow, baseCol, r, c);
+                            cell.setCellFormula(fForCell);
                         } else {
-                            cell.setCellValue(payload);
+                            // Raw value: try boolean/number, else write as string
+                            if (isBoolean(payload)) {
+                                cell.setCellValue(Boolean.parseBoolean(payload));
+                            } else if (isNumeric(payload)) {
+                                cell.setCellValue(Double.parseDouble(payload));
+                            } else {
+                                cell.setCellValue(payload);
+                            }
                         }
                     }
                 }

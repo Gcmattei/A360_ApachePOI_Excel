@@ -2,6 +2,10 @@
     "name": "ExcelCustomPackage",
     "label": "[[label]]",
     "description": "[[description]]",
+    "sessionType": {
+        "label" : "[[sessionLabel]]",
+        "description" : "[[sessionDescription]]",
+    },
     "group": "",
     "artifactName": "",
     "packageVersion": "",

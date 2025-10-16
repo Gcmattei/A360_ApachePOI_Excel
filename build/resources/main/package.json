@@ -2,10 +2,14 @@
     "name": "ExcelCustomPackage",
     "label": "[[label]]",
     "description": "[[description]]",
+    "sessionType": {
+        "label": "[[sessionLabel]]",
+        "description": "[[sessionDescription]]"
+    },
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.1.1",
-    "codeVersion": "0.1.1",
+    "packageVersion": "0.1.11",
+    "codeVersion": "0.1.11",
     "author": "Gustavo Mattei",
     "commands": [
         {
@@ -515,7 +519,12 @@
                                     "name": "cellOrRangeA1",
                                     "label": "[[SetCell.cellOrRange.label]]",
                                     "description": "[[SetCell.cellOrRange.description]]",
-                                    "type": "TEXT"
+                                    "type": "TEXT",
+                                    "rules": [
+                                        {
+                                            "name": "NOT_EMPTY"
+                                        }
+                                    ]
                                 }
                             ]
                         }
@@ -525,12 +534,7 @@
                     "name": "input",
                     "label": "[[SetCell.formula.label]]",
                     "description": "[[SetCell.formula.description]]",
-                    "type": "TEXT",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
+                    "type": "TEXT"
                 },
                 {
                     "name": "session",
@@ -550,6 +554,82 @@
                         },
                         {
                             "name": "SESSION_OBJECT"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "appendRecordToSheet",
+            "label": "[[AppendRecordToSheet.label]]",
+            "description": "[[AppendRecordToSheet.description]]",
+            "nodeLabel": "[[AppendRecordToSheet.node_label]]",
+            "allowedAgentTargets": [
+                "WINDOWS"
+            ],
+            "minimumControlRoomVersion": "8750",
+            "minimumBotAgentVersion": "20.11",
+            "mainClass": "com.davita.botcommand.excel.commands.dataOperations.AppendRecordToSheetCommand",
+            "icon": "excel-icon.svg",
+            "returns": [
+                {
+                    "type": "UNDEFINED",
+                    "subtype": "ANY"
+                }
+            ],
+            "attributes": [
+                {
+                    "name": "workbookPath",
+                    "label": "[[AppendRecordToSheet.file.label]]",
+                    "description": "[[AppendRecordToSheet.file.description]]",
+                    "type": "FILE",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        },
+                        {
+                            "name": "FILE_LOCAL"
+                        },
+                        {
+                            "name": "FILE_EXTENSION",
+                            "value": ".xlsx"
+                        },
+                        {
+                            "name": "FILE_EXTENSION",
+                            "value": ".xls"
+                        }
+                    ]
+                },
+                {
+                    "name": "sheetName",
+                    "label": "[[AppendRecordToSheet.sheet.label]]",
+                    "description": "[[AppendRecordToSheet.sheet.description]]",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "writeHeader",
+                    "label": "[[AppendRecordToSheet.writeHeader.label]]",
+                    "description": "[[AppendRecordToSheet.writeHeader.description]]",
+                    "type": "CHECKBOX",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "record",
+                    "label": "[[AppendRecordToSheet.record.label]]",
+                    "description": "[[AppendRecordToSheet.record.description]]",
+                    "type": "RECORD",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
                         }
                     ]
                 }
