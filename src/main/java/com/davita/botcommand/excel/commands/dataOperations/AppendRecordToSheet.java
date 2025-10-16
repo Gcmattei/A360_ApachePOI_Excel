@@ -74,26 +74,8 @@ public class AppendRecordToSheet {
         try {
             // Open via your session
             WorkbookSession session = WorkbookSession.openWorkbook(workbookPath,false);
-            File file = new File(workbookPath);
-
-            String fileExtension = OpenWorkbook.getFileExtension(workbookPath).toLowerCase();
 
             Workbook wb = session.getWorkbook();
-
-//            try (FileInputStream fis = new FileInputStream(file)) {
-//                switch (fileExtension) {
-//                    case "xlsx":
-//                        wb = new XSSFWorkbook(fis);
-//                        break;
-//                    case "xls":
-//                        wb = new HSSFWorkbook(fis);
-//                        break;
-//                    default:
-//                        throw new BotCommandException(String.format("Unsupported file extension: %s", fileExtension));
-//                }
-//            } catch (IOException e) {
-//                throw new BotCommandException(String.format("Failed to open workbook: %s", e.getMessage()), e);
-//            }
 
             Sheet sheet = wb.getSheet(sheetName.trim());
             if (sheet == null) throw new BotCommandException("Worksheet not found: " + sheetName);
@@ -132,12 +114,7 @@ public class AppendRecordToSheet {
 
             session.save();
             session.close();
-//            WorkbookSession session = new WorkbookSession();
-//            session.setWorkbook(wb);
-//            session.setFilePath(workbookPath);
-//            session.setReadOnly(false);
-//            session.saveChanges();
-//            session.close();
+
         } catch (Exception ex) {
             throw (ex instanceof BotCommandException)
                     ? (BotCommandException) ex
