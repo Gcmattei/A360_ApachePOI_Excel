@@ -2,61 +2,646 @@ package com.davita.botcommand.excel.sessions;
 
 import com.automationanywhere.toolchain.runtime.session.CloseableSessionObject;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.EncryptedDocumentException;
 
-import java.io.BufferedOutputStream;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.channels.OverlappingFileLockException;
+import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
+
 
 /**
- * Session for holding a POI Workbook and managing cross-platform advisory file locks via Java NIO.
+ * Windows-optimized session for managing Excel workbooks with Apache POI.
+ * Uses File-based WorkbookFactory for reduced memory consumption and
+ * RandomAccessFile for Windows file locking.
+ *
+ * Designed exclusively for Windows environments with Automation Anywhere A360.
  */
 public class WorkbookSession implements CloseableSessionObject {
 
-    private static final long DEFAULT_LOCK_TIMEOUT_MS = 10_000L; // 10 seconds
-    private static final long LOCK_RETRY_SLEEP_MS = 100L;
+    private static final long LOCK_TIMEOUT_MS = 10_000L; // 10 seconds
+    private static final long LOCK_RETRY_INTERVAL_MS = 100L;
+    private static final String TEMP_SUFFIX = ".tmp";
 
     private volatile boolean closed = false;
     private Workbook workbook;
-    private String filePath;
+    private File file;
     private boolean readOnly;
 
-    // NIO locking state
-    private FileChannel channel;
-    private FileLock nioLock;
+    // Windows file locking via RandomAccessFile
+    private RandomAccessFile randomAccessFile;
+    private FileChannel fileChannel;
+    private FileLock fileLock;
 
-    public Workbook getWorkbook() {
-        return workbook;
+    // ========== CONSTRUCTORS ==========
+
+    /**
+     * Private constructor for internal use by factory methods.
+     */
+    private WorkbookSession() {
     }
 
-    public void setWorkbook(Workbook workbook) {
-        this.workbook = workbook;
+    // ========== PUBLIC STATIC FACTORY METHODS ==========
+
+    /**
+     * Creates a new Excel workbook file with the specified format.
+     * Automatically determines format based on file extension (.xls or .xlsx).
+     *
+     * For Windows environments, this method:
+     * - Creates parent directories if needed
+     * - Initializes the workbook with one sheet
+     * - Acquires an exclusive file lock
+     * - Does NOT write to disk until save() is called
+     *
+     * @param filePath The absolute path where the workbook will be saved (must end with .xls or .xlsx)
+     * @param initialSheetName Optional name for the first sheet (defaults to "Sheet1" if null/empty)
+     * @return A new WorkbookSession ready for data manipulation
+     * @throws IOException if file path is invalid, format is unsupported, or file system error occurs
+     */
+    public static WorkbookSession createWorkbook(String filePath, String initialSheetName) throws IOException {
+        validateFilePath(filePath);
+
+        File targetFile = new File(filePath);
+        Path targetPath = targetFile.toPath().toAbsolutePath();
+
+        // Create parent directories
+        Path parent = targetPath.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+
+        // Determine workbook type from extension
+        String fileName = targetFile.getName().toLowerCase();
+        Workbook workbook;
+
+        if (fileName.endsWith(".xls")) {
+            workbook = new HSSFWorkbook();
+        } else if (fileName.endsWith(".xlsx")) {
+            workbook = new XSSFWorkbook();
+        } else if (fileName.endsWith(".xlsm")) {
+            workbook = new XSSFWorkbook();
+        } else {
+            throw new IOException("E-EXT-INVALID: Unsupported file extension. Must be .xls, .xlsx, or .xlsm. Got: "
+                    + fileName);
+        }
+
+        // Create initial sheet
+        String sheetName = (initialSheetName == null || initialSheetName.trim().isEmpty())
+                ? "Sheet1"
+                : initialSheetName.trim();
+        workbook.createSheet(sheetName);
+
+        // Write empty file so it exists on disk
+        // This is needed for file locking to work
+        if (!targetFile.exists()) {
+            try (FileOutputStream fos = new FileOutputStream(targetFile)) {
+                // Write empty file or minimal content
+                fos.flush();
+            }
+        }
+
+        // Initialize session WITHOUT reopening the file
+        // Keep the workbook in memory only
+        WorkbookSession session = new WorkbookSession();
+        session.workbook = workbook;
+        session.file = targetFile;
+        session.readOnly = false;
+
+        // Acquire exclusive lock on the empty file
+        session.acquireLock();
+
+        return session;
     }
 
-    public String getFilePath() {
-        return filePath;
+    /**
+     * Opens an existing Excel workbook from the specified file path.
+     * Uses WorkbookFactory.create(File) for optimal memory efficiency.
+     *
+     * This method provides the lowest memory footprint for reading Excel files
+     * by using File objects instead of InputStreams, which is critical for
+     * large workbooks in Windows environments.
+     *
+     * @param filePath The absolute path to the existing workbook file
+     * @param readOnly If true, opens with shared lock (read-only); if false, exclusive lock (read-write)
+     * @return A WorkbookSession containing the loaded workbook
+     * @throws IOException if file doesn't exist, is not a valid Excel file, or locking fails
+     * @throws EncryptedDocumentException if the workbook is password-protected
+     */
+    public static WorkbookSession openWorkbook(String filePath, boolean readOnly) throws IOException {
+        validateFilePath(filePath);
+
+        File targetFile = new File(filePath);
+
+        if (!targetFile.exists()) {
+            throw new IOException("E-FILE-NOTFOUND: File does not exist: " + targetFile.getAbsolutePath());
+        }
+
+        if (!targetFile.isFile()) {
+            throw new IOException("E-NOT-FILE: Path is not a regular file: " + targetFile.getAbsolutePath());
+        }
+
+        if (!targetFile.canRead()) {
+            throw new IOException("E-NO-READ-ACCESS: Cannot read file: " + targetFile.getAbsolutePath());
+        }
+
+        // Initialize session
+        WorkbookSession session = new WorkbookSession();
+        session.file = targetFile;
+        session.readOnly = readOnly;
+
+        try {
+            // WorkbookFactory automatically handles both .xls and .xlsx
+            session.workbook = WorkbookFactory.create(targetFile);
+
+            // Acquire lock AFTER workbook is loaded
+            session.acquireLock();
+
+        } catch (EncryptedDocumentException e) {
+            throw new EncryptedDocumentException("E-ENCRYPTED: Workbook is password-protected: "
+                    + targetFile.getAbsolutePath() + ". Use openWorkbook(filePath, password, readOnly) for encrypted files.", e);
+        } catch (IOException e) {
+            // Clean up workbook if lock acquisition failed
+            if (session.workbook != null) {
+                try {
+                    session.workbook.close();
+                } catch (Exception ignored) {}
+            }
+            throw new IOException("E-OPEN-FAIL: Failed to open workbook from " + filePath
+                    + ". Ensure the file is a valid Excel file (.xls/.xlsx): " + e.getMessage(), e);
+        } catch (Exception e) {
+            // Clean up workbook if unexpected error
+            if (session.workbook != null) {
+                try {
+                    session.workbook.close();
+                } catch (Exception ignored) {}
+            }
+            throw new IOException("E-UNEXPECTED: Unexpected error opening workbook: " + e.getMessage(), e);
+        }
+
+        return session;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    /**
+     * Opens an existing password-protected Excel workbook.
+     * Uses WorkbookFactory.create(File, password) for memory-efficient loading.
+     *
+     * @param filePath The absolute path to the existing workbook file
+     * @param password The password to decrypt the workbook
+     * @param readOnly If true, opens with shared lock (read-only); if false, exclusive lock (read-write)
+     * @return A WorkbookSession containing the loaded workbook
+     * @throws IOException if file doesn't exist, password is incorrect, or locking fails
+     */
+    public static WorkbookSession openWorkbook(String filePath, String password, boolean readOnly) throws IOException {
+        validateFilePath(filePath);
+
+        File targetFile = new File(filePath);
+
+        if (!targetFile.exists()) {
+            throw new IOException("E-FILE-NOTFOUND: File does not exist: " + targetFile.getAbsolutePath());
+        }
+
+        if (!targetFile.isFile()) {
+            throw new IOException("E-NOT-FILE: Path is not a regular file: " + targetFile.getAbsolutePath());
+        }
+
+        // Initialize session
+        WorkbookSession session = new WorkbookSession();
+        session.file = targetFile;
+        session.readOnly = readOnly;
+
+        try {
+            // Load workbook FIRST
+            if (password != null && !password.isEmpty()) {
+                session.workbook = WorkbookFactory.create(targetFile, password);
+            } else {
+                session.workbook = WorkbookFactory.create(targetFile);
+            }
+
+            // THEN acquire lock
+            session.acquireLock();
+
+        } catch (EncryptedDocumentException e) {
+            throw new IOException("E-WRONG-PASSWORD: Incorrect password or workbook encryption error: "
+                    + e.getMessage(), e);
+        } catch (IOException e) {
+            // Clean up workbook if lock acquisition failed
+            if (session.workbook != null) {
+                try {
+                    session.workbook.close();
+                } catch (Exception ignored) {}
+            }
+            throw new IOException("E-OPEN-FAIL: Failed to open encrypted workbook from " + filePath
+                    + ": " + e.getMessage(), e);
+        } catch (Exception e) {
+            // Clean up workbook if unexpected error
+            if (session.workbook != null) {
+                try {
+                    session.workbook.close();
+                } catch (Exception ignored) {}
+            }
+            throw new IOException("E-UNEXPECTED: Unexpected error opening encrypted workbook: "
+                    + e.getMessage(), e);
+        }
+
+        return session;
     }
 
-    public boolean isReadOnly() {
-        return readOnly;
+    /**
+     * Static method to save a workbook session to its current file path.
+     * Delegates to the instance save() method.
+     *
+     * @param session The WorkbookSession to save
+     * @throws IOException if session is null, in read-only mode, or save operation fails
+     */
+    public static void saveWorkbook(WorkbookSession session) throws IOException {
+        if (session == null) {
+            throw new IOException("E-SESSION-NULL: WorkbookSession cannot be null.");
+        }
+        session.save();
     }
 
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
+    /**
+     * Static method to save a workbook session to a new file path.
+     * Delegates to the instance saveAs() method.
+     *
+     * @param session The WorkbookSession to save
+     * @param newFilePath The destination file path
+     * @param overwrite Whether to overwrite existing files
+     * @throws IOException if session is null or save operation fails
+     */
+    public static void saveWorkbookAs(WorkbookSession session, String newFilePath, boolean overwrite) throws IOException {
+        if (session == null) {
+            throw new IOException("E-SESSION-NULL: WorkbookSession cannot be null.");
+        }
+        session.saveAs(newFilePath, overwrite);
+    }
+
+    // ========== INSTANCE SAVE METHODS ==========
+
+    /**
+     * Saves the current workbook to its current file path.
+     * Uses atomic write-to-temp-then-move strategy for Windows reliability.
+     *
+     * @throws IOException if session is read-only, workbook is null, or I/O error occurs
+     */
+    public void save() throws IOException {
+        if (workbook == null) {
+            throw new IOException("E-WB-NULL: No workbook is loaded; nothing to save.");
+        }
+
+        if (file == null) {
+            throw new IOException("E-PATH-UNSET: Destination path is not set. Use saveAs() to specify a file path.");
+        }
+
+        if (readOnly) {
+            throw new IOException("E-READONLY: Session is read-only. Use saveAs() to save to a new file or reopen in write mode.");
+        }
+
+        validateWorkbookFormat(file);
+        saveToFile(file);
+    }
+
+    /**
+     * Saves the current workbook to a new file path and switches the session to that file.
+     *
+     * @param newFilePath The destination file path
+     * @param overwrite Whether to replace existing files
+     * @throws IOException if save operation fails or destination cannot be written
+     */
+    public void saveAs(String newFilePath, boolean overwrite) throws IOException {
+        validateFilePath(newFilePath);
+
+        if (workbook == null) {
+            throw new IOException("E-WB-NULL: No workbook is loaded; nothing to save.");
+        }
+
+        File newFile = new File(newFilePath);
+        Path newPath = newFile.toPath().toAbsolutePath();
+
+        // Create parent directories
+        Path parent = newPath.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+
+        // Check for existing file
+        if (newFile.exists() && !overwrite) {
+            throw new IOException("E-EXISTS: Destination file already exists: " + newFile.getAbsolutePath()
+                    + ". Pass overwrite=true to replace.");
+        }
+
+        validateWorkbookFormat(newFile);
+
+        // Release current lock
+        releaseLock();
+
+        try {
+            // Save to new location
+            saveToFile(newFile);
+
+            // Switch session to new file
+            this.file = newFile;
+            this.readOnly = false;
+
+            // Acquire lock on new file
+            acquireLock();
+
+        } catch (IOException e) {
+            // Attempt to restore original lock if save failed
+            try {
+                acquireLock();
+            } catch (Exception ignored) {
+            }
+            throw e;
+        }
+    }
+
+    // ========== WINDOWS FILE LOCKING (RandomAccessFile) ==========
+
+    /**
+     * Acquires a file lock using RandomAccessFile and FileChannel.
+     * This is optimized for Windows file locking behavior.
+     *
+     * - Read-only mode: Shared lock (allows other readers)
+     * - Write mode: Exclusive lock (blocks all other access)
+     */
+    private void acquireLock() throws IOException {
+        releaseLock();
+
+        if (file == null) {
+            throw new IOException("E-FILE-NULL: File is not set; cannot acquire lock.");
+        }
+
+        try {
+            // Open RandomAccessFile in appropriate mode
+            String mode = readOnly ? "r" : "rw";
+            randomAccessFile = new RandomAccessFile(file, mode);
+            fileChannel = randomAccessFile.getChannel();
+
+            // Try to acquire lock with timeout
+            long startTime = System.currentTimeMillis();
+
+            while (true) {
+                try {
+                    // Shared lock for read-only, exclusive for write
+                    fileLock = fileChannel.tryLock(0L, Long.MAX_VALUE, readOnly);
+
+                    if (fileLock != null) {
+                        return; // Lock acquired successfully
+                    }
+                } catch (OverlappingFileLockException e) {
+                    // Another thread in this JVM has a lock - retry
+                }
+
+                // Check timeout
+                if (System.currentTimeMillis() - startTime > LOCK_TIMEOUT_MS) {
+                    throw new IOException("E-LOCK-TIMEOUT: Could not acquire "
+                            + (readOnly ? "shared" : "exclusive")
+                            + " lock on file within " + LOCK_TIMEOUT_MS + "ms: "
+                            + file.getAbsolutePath()
+                            + ". The file may be open in another application (e.g., Excel).");
+                }
+
+                // Wait before retrying
+                try {
+                    Thread.sleep(LOCK_RETRY_INTERVAL_MS);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("E-LOCK-INTERRUPTED: Interrupted while waiting for file lock: "
+                            + file.getAbsolutePath(), ie);
+                }
+            }
+
+        } catch (IOException e) {
+            // Clean up on failure
+            releaseLock();
+            throw e;
+        }
+    }
+
+    /**
+     * Releases the current file lock and closes associated resources.
+     * Safe to call multiple times.
+     */
+    private void releaseLock() {
+        // Release lock
+        if (fileLock != null) {
+            try {
+                if (fileLock.isValid()) {
+                    fileLock.release();
+                }
+            } catch (Exception ignored) {
+            } finally {
+                fileLock = null;
+            }
+        }
+
+        // Close channel
+        if (fileChannel != null) {
+            try {
+                if (fileChannel.isOpen()) {
+                    fileChannel.close();
+                }
+            } catch (Exception ignored) {
+            } finally {
+                fileChannel = null;
+            }
+        }
+
+        // Close RandomAccessFile
+        if (randomAccessFile != null) {
+            try {
+                randomAccessFile.close();
+            } catch (Exception ignored) {
+            } finally {
+                randomAccessFile = null;
+            }
+        }
+    }
+
+    // ========== SAVE IMPLEMENTATION ==========
+
+    /**
+     * Performs the actual save operation using atomic write strategy.
+     * Writes to temporary file first, then moves to target location.
+     * This prevents corruption if write is interrupted.
+     */
+    private void saveToFile(File targetFile) throws IOException {
+        File tempFile = null;
+        boolean hadLock = (fileLock != null && fileLock.isValid());
+
+        try {
+            // Create temporary file in same directory for atomic move
+            Path targetPath = targetFile.toPath().toAbsolutePath();
+            Path directory = targetPath.getParent();
+            String baseName = targetFile.getName();
+
+            tempFile = Files.createTempFile(directory, baseName + "_", TEMP_SUFFIX).toFile();
+
+            // Write workbook to temp file
+            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                workbook.write(fos);
+                fos.flush();
+            }
+
+            // Dispose SXSSF temporary files
+            if (workbook instanceof SXSSFWorkbook) {
+                ((SXSSFWorkbook) workbook).dispose();
+            }
+
+            // CRITICAL FOR WINDOWS: Release ALL file handles before move
+            // 1. Release RandomAccessFile lock
+            if (hadLock) {
+                releaseLock();
+            }
+
+            // 2. For XLSX files, close the underlying OPCPackage
+            //    This releases the file handle that WorkbookFactory opened
+            if (workbook instanceof XSSFWorkbook) {
+                XSSFWorkbook xssf = (XSSFWorkbook) workbook;
+                try {
+                    // Close the package to release file handle
+                    // Don't save - we already wrote to temp file
+                    xssf.getPackage().revert();
+                } catch (Exception ignored) {
+                    // Package might already be closed
+                }
+            }
+
+            // Small delay to ensure Windows releases file handles
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+
+            // Now safe to move temp file to target
+            try {
+                Files.move(tempFile.toPath(), targetPath,
+                        StandardCopyOption.REPLACE_EXISTING,
+                        StandardCopyOption.ATOMIC_MOVE);
+            } catch (AtomicMoveNotSupportedException e) {
+                // Fallback if atomic move not supported
+                Files.move(tempFile.toPath(), targetPath,
+                        StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            tempFile = null; // Successfully moved
+
+            // Reopen the workbook from the saved file
+            // This ensures a fresh file handle
+            try {
+                workbook = WorkbookFactory.create(targetFile);
+            } catch (Exception e) {
+                throw new IOException("E-REOPEN-FAIL: File saved successfully, but failed to reopen workbook: "
+                        + e.getMessage(), e);
+            }
+
+        } catch (Exception e) {
+            // Clean up temp file on failure
+            if (tempFile != null && tempFile.exists()) {
+                try {
+                    Files.deleteIfExists(tempFile.toPath());
+                } catch (Exception ignored) {
+                }
+            }
+
+            throw new IOException("E-SAVE-FAIL: Failed to save workbook to " + targetFile.getAbsolutePath()
+                    + ": " + e.getMessage()
+                    + ". Check disk space, permissions, and ensure the file is not open in another application.", e);
+
+        } finally {
+            // Re-acquire lock after save
+            if (hadLock) {
+                try {
+                    acquireLock();
+                } catch (IOException e) {
+                    // Non-fatal - file was saved successfully
+                    System.err.println("Warning: File saved but failed to re-acquire lock: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    // ========== VALIDATION METHODS ==========
+
+    /**
+     * Validates file path is not null or empty.
+     */
+    private static void validateFilePath(String filePath) throws IOException {
+        if (filePath == null || filePath.trim().isEmpty()) {
+            throw new IOException("E-PATH-UNSET: File path cannot be null or empty.");
+        }
+    }
+
+    /**
+     * Validates that the workbook type matches the file extension.
+     * Prevents format mismatches (e.g., saving XSSF as .xls).
+     */
+    private void validateWorkbookFormat(File targetFile) throws IOException {
+        String fileName = targetFile.getName().toLowerCase();
+
+        boolean isXls = fileName.endsWith(".xls");
+        boolean isXlsx = fileName.endsWith(".xlsx") || fileName.endsWith(".xlsm");
+
+        if (!isXls && !isXlsx) {
+            throw new IOException("E-EXT-UNKNOWN: File must have .xls, .xlsx, or .xlsm extension. Got: " + fileName);
+        }
+
+        boolean isHSSF = workbook instanceof HSSFWorkbook;
+        boolean isXSSF = workbook instanceof XSSFWorkbook || workbook instanceof SXSSFWorkbook;
+
+        if (isXls && isXSSF) {
+            throw new IOException("E-FORMAT-MISMATCH: Cannot save OOXML workbook (XSSF/SXSSF) with .xls extension. Use .xlsx or .xlsm.");
+        }
+
+        if (isXlsx && isHSSF) {
+            throw new IOException("E-FORMAT-MISMATCH: Cannot save binary workbook (HSSF) with .xlsx extension. Use .xls.");
+        }
+    }
+
+    // ========== SESSION MANAGEMENT ==========
+
+    /**
+     * Closes the workbook and releases all resources.
+     * This method is called automatically by Automation Anywhere when the session ends.
+     */
+    @Override
+    public void close() throws IOException {
+        try {
+            // CRITICAL: Release lock BEFORE closing workbook
+            // Otherwise POI cannot save changes when closing
+            releaseLock();
+
+            if (workbook != null) {
+                // Dispose SXSSF temporary files
+                if (workbook instanceof SXSSFWorkbook) {
+                    try {
+                        ((SXSSFWorkbook) workbook).dispose();
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                workbook.close();
+            }
+        } finally {
+            workbook = null;
+            // Ensure lock is released even if workbook.close() fails
+            releaseLock();
+            closed = true;
+        }
     }
 
     @Override
@@ -64,268 +649,21 @@ public class WorkbookSession implements CloseableSessionObject {
         return closed;
     }
 
-    /**
-     * Acquire an advisory lock on the current filePath using Java NIO.
-     * Uses tryLock with retries up to a timeout to avoid indefinite blocking.
-     */
-    public void acquireLock() throws IOException {
-        releaseLock();
+    // ========== GETTERS ==========
 
-        if (filePath == null || filePath.trim().isEmpty()) {
-            return;
-        }
-
-        final Path path = Path.of(filePath);
-        final String os = System.getProperty("os.name", "unknown");
-        String fs = "unknown";
-        try { fs = Files.getFileStore(path).name(); } catch (Exception ignore) {}
-
-        if (readOnly) {
-            if (!Files.exists(path)) {
-                throw new IOException("E-LOCK-NOTFOUND: Cannot acquire read lock because file does not exist: "
-                        + path + " (OS=" + os + ", FS=" + fs + ").");
-            }
-            channel = FileChannel.open(path, StandardOpenOption.READ);
-            nioLock = tryLockWithTimeout(channel, true, DEFAULT_LOCK_TIMEOUT_MS, os, fs);
-        } else {
-            // For writable sessions, create the file if it does not exist to allow locking
-            channel = FileChannel.open(path,
-                    StandardOpenOption.READ,
-                    StandardOpenOption.WRITE,
-                    StandardOpenOption.CREATE);
-            nioLock = tryLockWithTimeout(channel, false, DEFAULT_LOCK_TIMEOUT_MS, os, fs);
-        }
+    public Workbook getWorkbook() {
+        return workbook;
     }
 
-    private FileLock tryLockWithTimeout(FileChannel ch,
-                                        boolean shared,
-                                        long timeoutMs,
-                                        String os,
-                                        String fs) throws IOException {
-        final long deadline = System.currentTimeMillis() + timeoutMs;
-        while (true) {
-            try {
-                FileLock fl = ch.tryLock(0, Long.MAX_VALUE, shared);
-                if (fl != null) {
-                    return fl;
-                }
-            } catch (OverlappingFileLockException e) {
-                // Another lock in this JVM overlaps; retry until timeout
-            } catch (IOException ioe) {
-                // Bubble up with context for unsupported filesystems or other I/O errors
-                throw new IOException("E-LOCK-IO: Failed to acquire " + (shared ? "shared" : "exclusive")
-                        + " lock on " + filePath + " (OS=" + os + ", FS=" + fs + "): "
-                        + ioe.getMessage(), ioe);
-            }
-
-            if (System.currentTimeMillis() >= deadline) {
-                throw new IOException("E-LOCK-TIMEOUT: Could not acquire "
-                        + (shared ? "shared" : "exclusive") + " lock within "
-                        + timeoutMs + "ms on " + filePath + " (OS=" + os + ", FS=" + fs
-                        + "); ensure the file is not open elsewhere and that the filesystem supports locking.");
-            }
-
-            try {
-                Thread.sleep(LOCK_RETRY_SLEEP_MS);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-                throw new IOException("E-LOCK-INTERRUPTED: Interrupted while waiting for file lock on "
-                        + filePath + ".", ie);
-            }
-        }
+    public File getFile() {
+        return file;
     }
 
-    /**
-     * Release any held advisory lock and close the channel.
-     */
-    public void releaseLock() {
-        // Release NIO lock if present
-        try {
-            if (nioLock != null && nioLock.isValid()) {
-                nioLock.release();
-            }
-        } catch (Exception ignored) {
-        } finally {
-            nioLock = null;
-        }
-
-        // Close channel if present
-        try {
-            if (channel != null && channel.isOpen()) {
-                channel.close();
-            }
-        } catch (Exception ignored) {
-        } finally {
-            channel = null;
-        }
+    public String getFilePath() {
+        return file != null ? file.getAbsolutePath() : null;
     }
 
-    /**
-     * Switch the lock to a new file path, preserving the current readOnly policy.
-     * If acquiring on the new path fails, attempts to restore the previous lock.
-     */
-    public void switchLockTo(String newPath) throws IOException {
-        final String oldPath = this.filePath;
-        releaseLock();
-        this.filePath = newPath;
-        try {
-            acquireLock();
-        } catch (IOException first) {
-            try {
-                this.filePath = oldPath;
-                acquireLock();
-            } catch (Exception ignored) {
-                this.filePath = oldPath;
-            }
-            throw first;
-        }
-    }
-
-    @Override
-    public void close() throws IOException {
-        try {
-            if (workbook != null) {
-                // Best-effort cleanup for SXSSF temporary files
-                if (workbook instanceof SXSSFWorkbook) {
-                    try {
-                        ((SXSSFWorkbook) workbook).dispose();
-                    } catch (Exception ignore) {
-                        // swallow; disposal is best-effort on close
-                    }
-                }
-                workbook.close();
-            }
-        } finally {
-            workbook = null;
-            releaseLock();
-            closed = true;
-        }
-    }
-
-    public void saveChanges() throws IOException {
-        if (workbook == null) {
-            throw new IOException("E-WB-NULL: No workbook is loaded; nothing to save.");
-        }
-
-        if (filePath == null || filePath.trim().isEmpty()) {
-            throw new IOException("E-PATH-UNSET: Destination path is not set; call saveAs(...) to choose a file path.");
-        }
-
-        if (readOnly) {
-            throw new IOException("E-READONLY: Session is read-only; use saveAs(...) to a writable path or reopen without readOnly.");
-        }
-
-        final Path target = Path.of(filePath);
-        final Path dir = target.toAbsolutePath().getParent();
-        if (dir == null) {
-            throw new IOException("E-DIR-RESOLVE: Cannot resolve parent directory for: " + target + ".");
-        }
-        if (Files.exists(target) && Files.isDirectory(target)) {
-            throw new IOException("E-TARGET-IS-DIR: Destination is a directory, not a file: " + target + ".");
-        }
-
-        // Validate workbook type vs extension (HSSFWorkbook -> .xls; XSSFWorkbook/SXSSFWorkbook -> .xlsx/.xlsm)
-        final String name = target.getFileName().toString();
-        final String ext = name.contains(".") ? name.substring(name.lastIndexOf('.') + 1).toLowerCase() : "";
-        final boolean isXls = ext.equals("xls");
-        final boolean isXlsxLike = ext.equals("xlsx") || ext.equals("xlsm") || ext.equals("xltx") || ext.equals("xltm");
-        final boolean isHssf = workbook instanceof org.apache.poi.hssf.usermodel.HSSFWorkbook;
-        final boolean isXssf = workbook instanceof org.apache.poi.xssf.usermodel.XSSFWorkbook;
-        final boolean isSxssf = workbook instanceof org.apache.poi.xssf.streaming.SXSSFWorkbook;
-
-        if (isXls && (isXssf || isSxssf)) {
-            throw new IOException("E-FORMAT-MISMATCH: OOXML workbook cannot be saved with .xls; use .xlsx or .xlsm via saveAs(...).");
-        }
-        if (isXlsxLike && isHssf) {
-            throw new IOException("E-FORMAT-MISMATCH: Binary .xls workbook cannot be saved as .xlsx; use .xls via saveAs(...).");
-        }
-        if (!isXls && !isXlsxLike) {
-            throw new IOException("E-EXT-UNKNOWN: Unsupported or missing extension for Excel file: " + name
-                    + " (expected .xls or .xlsx/.xlsm).");
-        }
-
-        final boolean hadLock = (nioLock != null && nioLock.isValid()) || (channel != null && channel.isOpen());
-        Path temp = null;
-
-        try {
-            if (hadLock) {
-                releaseLock();
-            }
-
-            Files.createDirectories(dir);
-            temp = Files.createTempFile(dir, name + ".", ".tmp_" + System.nanoTime());
-
-            try (OutputStream os = new BufferedOutputStream(
-                    Files.newOutputStream(temp,
-                            java.nio.file.StandardOpenOption.WRITE,
-                            java.nio.file.StandardOpenOption.TRUNCATE_EXISTING))) {
-                workbook.write(os);    // Persist workbook data
-                os.flush();
-            }
-
-            // Remove POI's streaming temp files for SXSSF workbooks
-            if (isSxssf) {
-                ((org.apache.poi.xssf.streaming.SXSSFWorkbook) workbook).dispose();
-            }
-
-            try {
-                Files.move(temp, target,
-                        StandardCopyOption.REPLACE_EXISTING,
-                        StandardCopyOption.ATOMIC_MOVE);
-            } catch (java.nio.file.AtomicMoveNotSupportedException e) {
-                // Fallback when atomic moves are not supported (e.g., cross-volume)
-                Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING);
-            }
-        } catch (IOException ioe) {
-            // Ensure temporary file is deleted on any failure to avoid littering the filesystem
-            safeDelete(temp);
-            throw new IOException("E-SAVE-FAIL: Failed saving to " + filePath + " ("
-                    + ioe.getClass().getSimpleName() + "): " + ioe.getMessage()
-                    + ". Check permissions, disk space, antivirus/file-sync, and that the file isn’t open elsewhere.", ioe);
-        } finally {
-            // Defensive cleanup if temp still exists (e.g., partial failure scenarios)
-            safeDelete(temp);
-
-            if (hadLock) {
-                try {
-                    acquireLock();
-                } catch (IOException re) {
-                    throw new IOException("E-RELOCK-FAIL: Saved file, but failed to re-acquire session lock: "
-                            + re.getMessage() + ". The file was saved; reopen the session if locking is required.", re);
-                }
-            }
-        }
-    }
-
-    /** Delete a file if it exists, swallowing any exception (best-effort). */
-    private static void safeDelete(Path p) {
-        if (p == null) return;
-        try {
-            java.nio.file.Files.deleteIfExists(p);
-        } catch (Exception ignored) {
-            // best-effort cleanup; nothing else to do
-        }
-    }
-    /**
-     * Convenience: Save the workbook to a new path, optionally allowing overwrite.
-     */
-    public void saveAs(String newPath, boolean overwrite) throws IOException {
-        if (newPath == null || newPath.trim().isEmpty()) {
-            throw new IOException("E-PATH-UNSET: Destination path is not set; provide a non-empty path.");
-        }
-        Path newTarget = Path.of(newPath);
-
-        Path parent = newTarget.getParent();
-        if (parent != null) {
-            Files.createDirectories(parent);
-        }
-
-        if (Files.exists(newTarget) && !overwrite && Files.isRegularFile(newTarget)) {
-            throw new IOException("E-EXISTS: Destination already exists: " + newTarget + "; pass overwrite=true to replace.");
-        }
-
-        setReadOnly(false); // Save as command always set the session to read-write.
-        switchLockTo(newPath);
-        saveChanges();
+    public boolean isReadOnly() {
+        return readOnly;
     }
 }

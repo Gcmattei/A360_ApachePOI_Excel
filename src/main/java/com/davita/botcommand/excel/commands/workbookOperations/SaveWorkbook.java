@@ -31,7 +31,7 @@ public class SaveWorkbook {
             @NotEmpty WorkbookSession session
     ) {
         try {
-            session.saveChanges();
+            session.save();
 
         } catch (BotCommandException e) {
             throw e;

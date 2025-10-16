@@ -6,6 +6,7 @@ import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.exception.BotCommandException;
 import com.automationanywhere.commandsdk.i18n.Messages;
 import com.automationanywhere.commandsdk.i18n.MessagesFactory;
+import com.automationanywhere.core.security.SecureString;
 import java.lang.Boolean;
 import java.lang.ClassCastException;
 import java.lang.Deprecated;
@@ -56,6 +57,13 @@ public final class OpenWorkbookCommand implements BotCommand {
       }
 
     }
+    if(parameters.containsKey("credential") && parameters.get("credential") != null && parameters.get("credential").get() != null) {
+      convertedParameters.put("credential", parameters.get("credential").get());
+      if(convertedParameters.get("credential") !=null && !(convertedParameters.get("credential") instanceof SecureString)) {
+        throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","credential", "SecureString", parameters.get("credential").get().getClass().getSimpleName()));
+      }
+    }
+
     if(parameters.containsKey("readOnly") && parameters.get("readOnly") != null && parameters.get("readOnly").get() != null) {
       convertedParameters.put("readOnly", parameters.get("readOnly").get());
       if(convertedParameters.get("readOnly") !=null && !(convertedParameters.get("readOnly") instanceof Boolean)) {
@@ -67,7 +75,7 @@ public final class OpenWorkbookCommand implements BotCommand {
     }
 
     try {
-      Optional<Value> result =  Optional.ofNullable(command.action((String)convertedParameters.get("filePath"),(Boolean)convertedParameters.get("readOnly")));
+      Optional<Value> result =  Optional.ofNullable(command.action((String)convertedParameters.get("filePath"),(SecureString)convertedParameters.get("credential"),(Boolean)convertedParameters.get("readOnly")));
       return logger.traceExit(result);
     }
     catch (ClassCastException e) {

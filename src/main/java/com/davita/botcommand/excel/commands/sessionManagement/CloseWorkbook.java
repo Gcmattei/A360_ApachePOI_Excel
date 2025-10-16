@@ -42,14 +42,14 @@ public class CloseWorkbook {
             saveChanges = false;
         }
 
-        if (session == null || session.getWorkbook() == null) {
-            throw new BotCommandException("Workbook session not initialized. Please open or create a workbook first.");
-        }
-
-        // Enforce read-only policy when attempting to save
-        if (saveChanges && session.isReadOnly()) {
-            throw new BotCommandException("Cannot save changes: the workbook is open in read-only mode.");
-        }
+//        if (session == null || session.getWorkbook() == null) {
+//            throw new BotCommandException("Workbook session not initialized. Please open or create a workbook first.");
+//        }
+//
+//        // Enforce read-only policy when attempting to save
+//        if (saveChanges && session.isReadOnly()) {
+//            throw new BotCommandException("Cannot save changes: the workbook is open in read-only mode.");
+//        }
 
         try {
             if (saveChanges) {
@@ -58,7 +58,7 @@ public class CloseWorkbook {
                 if (path == null || path.trim().isEmpty()) {
                     throw new BotCommandException("Cannot save changes because the session has no file path.");
                 }
-                session.saveChanges();
+                session.save();
             }
 
             // Close and mark session as closed

@@ -71,10 +71,12 @@ configure(allprojects){
 		compileOnly group: "net.java.dev.jna", name: "jna-platform", version: "$jnaVersion"
 
 		implementation name: 'package-runtime-sdk', version: '1.0.0'
+        implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
 
 		testImplementation name: 'package-compileonly-sdk', version: '1.6.0'
 		testImplementation group: "org.testng", name:"testng", version: "$testNgVersion"
         testImplementation "com.google.protobuf:protobuf-java:3.21.12"
+
 
         // Apache POI Dependencies for Excel Operations
         implementation "org.apache.poi:poi:5.2.2"

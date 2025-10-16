@@ -2114,6 +2114,16 @@
                     ]
                 },
                 {
+                    "name": "credential",
+                    "label": "[[OpenWorkbook.credential.label]]",
+                    "description": "[[OpenWorkbook.credential.description]]",
+                    "type": "CREDENTIAL",
+                    "defaultValue": {
+                        "boolean": false,
+                        "type": "BOOLEAN"
+                    }
+                },
+                {
                     "name": "readOnly",
                     "label": "[[OpenWorkbook.readOnly.label]]",
                     "description": "[[OpenWorkbook.readOnly.description]]",

@@ -1,5 +1,6 @@
 package com.davita.botcommand.excel.commands.sessionManagement;
 
+import com.automationanywhere.core.security.SecureString;
 import com.davita.botcommand.excel.sessions.WorkbookSession;
 import com.automationanywhere.botcommand.exception.BotCommandException;
 import com.automationanywhere.botcommand.data.impl.SessionValue;
@@ -41,10 +42,14 @@ public class OpenWorkbook {
             @Pkg(label = "[[OpenWorkbook.filePath.label]]", description = "[[OpenWorkbook.filePath.description]]")
             @NotEmpty @FileExtension(value = "xlsx,xls") @LocalFile String filePath,
 
-            @Idx(index = "2", type = AttributeType.CHECKBOX)
+            @Idx(index = "2", type = AttributeType.CREDENTIAL)
+            @Pkg(label = "[[OpenWorkbook.credential.label]]", description = "[[OpenWorkbook.credential.description]]", default_value_type = DataType.BOOLEAN, default_value = "False")
+            SecureString credential,
+
+            @Idx(index = "3", type = AttributeType.CHECKBOX)
             @Pkg(label = "[[OpenWorkbook.readOnly.label]]", description = "[[OpenWorkbook.readOnly.description]]", default_value_type = DataType.BOOLEAN, default_value = "False")
             @NotEmpty Boolean readOnly
-    ) {
+    ) throws IOException {
         if (filePath == null || filePath.trim().isEmpty()) {
             throw new BotCommandException("File path cannot be empty.");
         }
@@ -53,40 +58,48 @@ public class OpenWorkbook {
             readOnly = false;
         }
 
-        File file = new File(filePath);
-
-        if (!file.exists() || !file.isFile()) {
-            throw new BotCommandException(String.format("File not found: %s", filePath));
+        WorkbookSession session;
+        if (credential == null) {
+            session = WorkbookSession.openWorkbook(filePath,readOnly);
+        } else {
+            String password = credential.getInsecureString();
+            session = WorkbookSession.openWorkbook(filePath,password,readOnly);
         }
 
-        String fileExtension = getFileExtension(filePath).toLowerCase();
-
-        Workbook workbook;
-
-        try (FileInputStream fis = new FileInputStream(file)) {
-            switch (fileExtension) {
-                case "xlsx":
-                    workbook = new XSSFWorkbook(fis);
-                    break;
-                case "xls":
-                    workbook = new HSSFWorkbook(fis);
-                    break;
-                default:
-                    throw new BotCommandException(String.format("Unsupported file extension: %s", fileExtension));
-            }
-        } catch (IOException e) {
-            throw new BotCommandException(String.format("Failed to open workbook: %s", e.getMessage()), e);
-        }
-
-        WorkbookSession session = new WorkbookSession();
-        session.setWorkbook(workbook);
-        session.setFilePath(filePath);
-        session.setReadOnly(readOnly);
-        try {
-            session.acquireLock();
-        } catch (IOException ioe) {
-            throw new BotCommandException("Failed to lock workbook file for session: " + ioe.getMessage(), ioe);
-        }
+//        File file = new File(filePath);
+//
+//        if (!file.exists() || !file.isFile()) {
+//            throw new BotCommandException(String.format("File not found: %s", filePath));
+//        }
+//
+//        String fileExtension = getFileExtension(filePath).toLowerCase();
+//
+//        Workbook workbook;
+//
+//        try (FileInputStream fis = new FileInputStream(file)) {
+//            switch (fileExtension) {
+//                case "xlsx":
+//                    workbook = new XSSFWorkbook(fis);
+//                    break;
+//                case "xls":
+//                    workbook = new HSSFWorkbook(fis);
+//                    break;
+//                default:
+//                    throw new BotCommandException(String.format("Unsupported file extension: %s", fileExtension));
+//            }
+//        } catch (IOException e) {
+//            throw new BotCommandException(String.format("Failed to open workbook: %s", e.getMessage()), e);
+//        }
+//
+//        WorkbookSession session = new WorkbookSession();
+//        session.setWorkbook(workbook);
+//        session.setFilePath(filePath);
+//        session.setReadOnly(readOnly);
+//        try {
+//            session.acquireLock();
+//        } catch (IOException ioe) {
+//            throw new BotCommandException("Failed to lock workbook file for session: " + ioe.getMessage(), ioe);
+//        }
 
         return SessionValue.builder()
                 .withSessionObject(session)
