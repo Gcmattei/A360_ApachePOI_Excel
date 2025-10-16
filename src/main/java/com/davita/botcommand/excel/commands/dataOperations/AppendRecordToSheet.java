@@ -18,7 +18,6 @@ import com.automationanywhere.commandsdk.annotations.rules.NotEmpty;
 import com.automationanywhere.commandsdk.model.AttributeType;
 
 import com.davita.botcommand.excel.sessions.WorkbookSession;
-import com.davita.botcommand.excel.commands.sessionManagement.OpenWorkbook;
 
 import org.apache.poi.ss.usermodel.*;
 
