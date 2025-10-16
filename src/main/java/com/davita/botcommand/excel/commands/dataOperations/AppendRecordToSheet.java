@@ -20,13 +20,9 @@ import com.automationanywhere.commandsdk.model.AttributeType;
 import com.davita.botcommand.excel.sessions.WorkbookSession;
 import com.davita.botcommand.excel.commands.sessionManagement.OpenWorkbook;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
 @BotCommand
