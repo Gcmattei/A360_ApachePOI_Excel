@@ -1,6 +1,7 @@
 package com.davita.botcommand.excel.commands.dataOperations;
 
 import com.automationanywhere.botcommand.data.Value;
+import com.automationanywhere.botcommand.data.impl.StringValue;
 import com.automationanywhere.botcommand.data.model.Schema;
 import com.automationanywhere.botcommand.data.model.table.Row;
 import com.automationanywhere.botcommand.data.model.table.Table;
@@ -39,11 +40,16 @@ public class WriteTableToWorksheet {
                     description = "[[WriteTableToWorksheet.dataTable.description]]")
             @NotEmpty Table table,
 
+            @Idx(index = "2", type = AttributeType.CHECKBOX)
+            @Pkg(label = "[[WriteTableToWorksheet.writeHeader.label]]")
+            @NotEmpty
+            Boolean writeHeader,
+
             // Target sheet selection mode
-            @Idx(index = "2", type = AttributeType.RADIO,
+            @Idx(index = "3", type = AttributeType.RADIO,
                     options = {
-                        @Idx.Option(index = "2.1", pkg = @Pkg(value = TARGET_ACTIVE, label = "[[WriteTableToWorksheet.targetSheetMode.active]]")),
-                        @Idx.Option(index = "2.2", pkg = @Pkg(value = TARGET_SPECIFIC, label = "[[WriteTableToWorksheet.targetSheetMode.specific]]"))
+                        @Idx.Option(index = "3.1", pkg = @Pkg(value = TARGET_ACTIVE, label = "[[WriteTableToWorksheet.targetSheetMode.active]]")),
+                        @Idx.Option(index = "3.2", pkg = @Pkg(value = TARGET_SPECIFIC, label = "[[WriteTableToWorksheet.targetSheetMode.specific]]"))
                     }
             )
             @Pkg(label = "[[WriteTableToWorksheet.targetSheetMode.label]]",
@@ -52,27 +58,27 @@ public class WriteTableToWorksheet {
             @NotEmpty String targetSheetMode,
 
             // Specific sheet name (used when mode == SPECIFIC)
-            @Idx(index = "2.2.1", type = AttributeType.TEXT)
+            @Idx(index = "3.2.1", type = AttributeType.TEXT)
             @Pkg(label = "[[WriteTableToWorksheet.sheetName.label]]",
                     description = "[[WriteTableToWorksheet.sheetName.description]]")
             @NotEmpty String sheetName,
 
             // Start cell (A1) for top-left corner
-            @Idx(index = "3", type = AttributeType.TEXT)
+            @Idx(index = "4", type = AttributeType.TEXT)
             @Pkg(label = "[[WriteTableToWorksheet.startCell.label]]",
                     description = "[[WriteTableToWorksheet.startCell.description]]",
                     default_value = "A1", default_value_type = DataType.STRING)
             @NotEmpty String startCellA1,
 
             // Retain data types or write as string
-            @Idx(index = "4", type = AttributeType.CHECKBOX)
+            @Idx(index = "5", type = AttributeType.CHECKBOX)
             @Pkg(label = "[[WriteTableToWorksheet.retainTypes.label]]",
                     description = "[[WriteTableToWorksheet.retainTypes.description]]",
                     default_value = "false", default_value_type = DataType.BOOLEAN)
             Boolean retainTypes,
 
             // Session
-            @Idx(index = "5", type = AttributeType.SESSION)
+            @Idx(index = "6", type = AttributeType.SESSION)
             @Pkg(label = "[[existingSession.label]]",
                     description = "[[existingSession.description]]",
                     default_value = "Default", default_value_type = DataType.SESSION)
@@ -126,6 +132,21 @@ public class WriteTableToWorksheet {
             int numCols = (schema != null) ? schema.size() : 0;
             if (numCols <= 0) {
                 throw new BotCommandException("Input data table has no columns.");
+            }
+
+            // Write header if requested
+            if (writeHeader) {
+                // Write left‑to‑right starting at firstDataCol
+                int c = startCol;
+                org.apache.poi.ss.usermodel.Row headerRow = sheet.getRow(startRow);
+                if (headerRow == null) headerRow = sheet.createRow(startRow);
+                for (Schema schemaCol : schema) {
+                    Cell cell = headerRow.getCell(c);
+                    if (cell == null) cell = headerRow.createCell(startCol + c);
+                    writeWithType(cell, new StringValue(schemaCol.getName()), retainTypes);
+                    c++;
+                }
+                startRow++;
             }
 
             // Write rows

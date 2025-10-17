@@ -119,7 +119,8 @@ public class WorkbookSession implements CloseableSessionObject {
         session.file = targetFile;
         session.readOnly = false;
 
-        // Acquire exclusive lock on the empty file
+        // Save and acquire exclusive lock on the file
+        session.save();
         session.acquireLock();
 
         return session;
@@ -483,14 +484,20 @@ public class WorkbookSession implements CloseableSessionObject {
         boolean hadLock = (fileLock != null && fileLock.isValid());
 
         try {
-            // Create temporary file in same directory for atomic move
+            // Create temporary file in same directory
             Path targetPath = targetFile.toPath().toAbsolutePath();
             Path directory = targetPath.getParent();
             String baseName = targetFile.getName();
 
             tempFile = Files.createTempFile(directory, baseName + "_", TEMP_SUFFIX).toFile();
 
-            // Write workbook to temp file
+            // CRITICAL: Release lock BEFORE writing
+            // POI needs to read the original file during write for XLSX files
+            if (hadLock) {
+                releaseLock();
+            }
+
+            // Now write workbook to temp file (POI can now read original if needed)
             try (FileOutputStream fos = new FileOutputStream(tempFile)) {
                 workbook.write(fos);
                 fos.flush();
@@ -501,53 +508,36 @@ public class WorkbookSession implements CloseableSessionObject {
                 ((SXSSFWorkbook) workbook).dispose();
             }
 
-            // CRITICAL FOR WINDOWS: Release ALL file handles before move
-            // 1. Release RandomAccessFile lock
-            if (hadLock) {
-                releaseLock();
-            }
-
-            // 2. For XLSX files, close the underlying OPCPackage
-            //    This releases the file handle that WorkbookFactory opened
-            if (workbook instanceof XSSFWorkbook) {
-                XSSFWorkbook xssf = (XSSFWorkbook) workbook;
-                try {
-                    // Close the package to release file handle
-                    // Don't save - we already wrote to temp file
-                    xssf.getPackage().revert();
-                } catch (Exception ignored) {
-                    // Package might already be closed
-                }
-            }
-
-            // Small delay to ensure Windows releases file handles
+            // Close workbook to release internal file handles
             try {
-                Thread.sleep(50);
+                workbook.close();
+            } catch (Exception e) {
+                System.err.println("Warning: Error closing workbook: " + e.getMessage());
+            }
+
+            // Small delay for Windows to release handles
+            try {
+                Thread.sleep(100);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }
 
-            // Now safe to move temp file to target
+            // Delete target file
+            if (targetFile.exists()) {
+                Files.delete(targetPath);
+            }
+
+            // Move temp to target
             try {
-                Files.move(tempFile.toPath(), targetPath,
-                        StandardCopyOption.REPLACE_EXISTING,
-                        StandardCopyOption.ATOMIC_MOVE);
+                Files.move(tempFile.toPath(), targetPath, StandardCopyOption.ATOMIC_MOVE);
             } catch (AtomicMoveNotSupportedException e) {
-                // Fallback if atomic move not supported
-                Files.move(tempFile.toPath(), targetPath,
-                        StandardCopyOption.REPLACE_EXISTING);
+                Files.move(tempFile.toPath(), targetPath);
             }
 
             tempFile = null; // Successfully moved
 
-            // Reopen the workbook from the saved file
-            // This ensures a fresh file handle
-            try {
-                workbook = WorkbookFactory.create(targetFile);
-            } catch (Exception e) {
-                throw new IOException("E-REOPEN-FAIL: File saved successfully, but failed to reopen workbook: "
-                        + e.getMessage(), e);
-            }
+            // Reload the workbook from the saved file
+            workbook = WorkbookFactory.create(targetFile);
 
         } catch (Exception e) {
             // Clean up temp file on failure
@@ -563,12 +553,11 @@ public class WorkbookSession implements CloseableSessionObject {
                     + ". Check disk space, permissions, and ensure the file is not open in another application.", e);
 
         } finally {
-            // Re-acquire lock after save
-            if (hadLock) {
+            // Re-acquire lock after reload
+            if (hadLock && workbook != null) {
                 try {
                     acquireLock();
                 } catch (IOException e) {
-                    // Non-fatal - file was saved successfully
                     System.err.println("Warning: File saved but failed to re-acquire lock: " + e.getMessage());
                 }
             }

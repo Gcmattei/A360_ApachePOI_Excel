@@ -34,6 +34,8 @@
   "OpenWorkbook.description": "Opens an existing workbook and returns a session for further use",
   "OpenWorkbook.filePath.label": "Workbook file path",
   "OpenWorkbook.filePath.description": "Path to an existing .xlsx or .xls file",
+  "OpenWorkbook.credential.label": "Workbook password",
+  "OpenWorkbook.credential.description": "Password for the encrypted workbook",
   "OpenWorkbook.readOnly.label": "Open as Read-Only",
   "OpenWorkbook.readOnly.description": "Open the workbook without allowing changes to be saved.",
 
@@ -120,6 +122,7 @@
   "WriteTableToWorksheet.description": "Write values from a data table into a worksheet.",
   "WriteTableToWorksheet.dataTable.label": "Enter data table variable",
   "WriteTableToWorksheet.dataTable.description": "",
+  "WriteTableToWorksheet.writeHeader.label": "Include headers",
   "WriteTableToWorksheet.targetSheetMode.label": "Enter worksheet name:",
   "WriteTableToWorksheet.targetSheetMode.description": "",
   "WriteTableToWorksheet.targetSheetMode.active": "Active worksheet",
@@ -477,23 +480,14 @@
   "IterateWorksheetOrTable.read.value.label": "Read cell value",
   "IterateWorksheetOrTable.read.value.description": "e.g. 50% will be read as 50",
 
-  "AppendRowToSheet.label": "Append row to sheet",
-  "AppendRowToSheet.node_label": "{{sheetName}} - {{session}}",
-  "AppendRowToSheet.description": "Opens an Excel file, appends a record to the specified sheet at the next available row and first data column, saves, and closes.",
-  "AppendRowToSheet.file.label": "Excel file path",
-  "AppendRowToSheet.file.description": "Local path to an .xlsx or .xls file.",
-  "AppendRowToSheet.sheet.label": "Sheet name",
-  "AppendRowToSheet.sheet.description": "Name of the worksheet where the row will be appended.",
-  "AppendRowToSheet.record.label": "Row to add",
-  "AppendRowToSheet.record.description": "Record variable whose fields will be written as cells starting at the first populated column.",
-
   "AppendRecordToSheet.label": "Append record to sheet",
-  "AppendRecordToSheet.node_label": "{{sheetName}} - {{session}}",
+  "AppendRecordToSheet.node_label": "{{sheetName}}| - {{session}}",
   "AppendRecordToSheet.description": "Opens the workbook via session, appends the Record at the next empty row starting at the first data column, saves, and closes.",
   "AppendRecordToSheet.file.label": "Workbook file path",
   "AppendRecordToSheet.file.description": "Path to an existing .xlsx or .xls file",
   "AppendRecordToSheet.sheet.label": "Sheet name",
   "AppendRecordToSheet.sheet.description": "Name of the worksheet where the row will be appended.",
+  "AppendRecordToSheet.writeHeader.label": "Include headers",
   "AppendRecordToSheet.record.label": "Row to add (Record)",
   "AppendRecordToSheet.record.description": "Record fields are written left-to-right beginning at the first populated column."
 }

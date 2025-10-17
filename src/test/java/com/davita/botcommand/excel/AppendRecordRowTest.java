@@ -24,7 +24,16 @@ import java.util.List;
 public class AppendRecordRowTest {
 
     // Choose an existing sheet present in your resource workbook (e.g., "Sheet3")
-    private static final String SHEET_NAME = "Updated";
+    private static final String SHEET_NAME = "Sheet1";
+
+    /**
+     * Prints a clickable file path link in IntelliJ console
+     */
+    private void logClickableFile(String message, Path filePath) {
+        // Format compatible with IntelliJ IDEA on Windows
+        String clickablePath = filePath.toAbsolutePath().toString().replace("\\", "/");
+        System.out.println(message.trim() + " " + clickablePath);
+    }
 
     @Test
     public void appendRecord_usesExistingSheet_logsAndVerifies() throws Exception {
@@ -32,10 +41,12 @@ public class AppendRecordRowTest {
         URL url = getClass().getResource("/excel/Excel_TestFile.xlsx");
         Assert.assertNotNull("Test resource not found", url);
         Path tmpDir = Files.createTempDirectory("append_row_");
+        logClickableFile("[TEST] Created test directory at:",tmpDir);
+
         Path work = tmpDir.resolve("Excel_TestFile_out.xlsx");
         Files.copy(url.openStream(), work, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("[TEST] Copied test workbook to: " + work.toAbsolutePath());
 
+        logClickableFile("[TEST] Copied test workbook to:",work);
 
         String text = "test";
         double number = 123;
@@ -53,7 +64,7 @@ public class AppendRecordRowTest {
         System.out.println("[TEST] Created record variable");
         // 3) Execute the command (uses existing sheet, does not create new)
         AppendRecordToSheet cmd = new AppendRecordToSheet();
-        System.out.println("[TEST] Appending record to sheet: " + SHEET_NAME + " at " + work.toString());
+        logClickableFile("[TEST] Appending record to sheet '" + SHEET_NAME + "' at:",work);
         cmd.action(work.toString(), SHEET_NAME,true, record);
         System.out.println("[TEST] Append command completed, reopening for verification.");
 

@@ -24,8 +24,18 @@ public class OpenWorkbookTest {
     private static final String BOOK_NAME = "ExcelTest";
     private static final String SHEET_NAME = "Sheet2";
 
+    /**
+     * Prints a clickable file path link in IntelliJ console
+     */
+    private void logClickableFile(String message, Path filePath) {
+        // Format compatible with IntelliJ IDEA on Windows
+        String clickablePath = filePath.toAbsolutePath().toString().replace("\\", "/");
+        System.out.println(message.trim() + " " + clickablePath);
+    }
+
     @Test
     public void open_workbook_verify() throws Exception {
+        System.out.println("[TEST START] Starting workbook opening test");
         // Copy resource workbooks to temp paths
         URL urlXLS = getClass().getResource("/excel/Excel_TestFile.xls");
         Assert.assertNotNull("Test XLS resource not found", urlXLS);
@@ -38,6 +48,8 @@ public class OpenWorkbookTest {
 
         Path tmpDir = Files.createTempDirectory("open_book_");
 
+        logClickableFile("[TEST] Created test directory at:",tmpDir);
+
         System.out.println("[TEST] Testing XLS workbook opening");
         open_workbook_verify(BOOK_NAME + ".xls", SHEET_NAME, tmpDir, urlXLS);
 
@@ -46,11 +58,17 @@ public class OpenWorkbookTest {
 
         System.out.println("[TEST] Testing XLSM workbook opening");
         open_workbook_verify(BOOK_NAME + ".xlsm", SHEET_NAME, tmpDir, urlXLSM);
+
+        System.out.println("[TEST END] Finished workbook opening test");
     }
 
     @Test
     public void save_workbook_verify() throws Exception {
+        System.out.println("[TEST START] Starting workbook saving test");
+
         Path tmpDir = Files.createTempDirectory("save_book_");
+
+        logClickableFile("[TEST] Created test directory at:",tmpDir);
 
         System.out.println("[TEST] Testing SaveWorkbook for XLS format");
         save_workbook_verify(tmpDir, ".xls");
@@ -60,11 +78,16 @@ public class OpenWorkbookTest {
 
         System.out.println("[TEST] Testing SaveWorkbook for XLSM format");
         save_workbook_verify(tmpDir, ".xlsm");
+
+        System.out.println("[TEST END] Finished workbook saving test");
     }
 
     @Test
     public void save_workbook_as_verify() throws Exception {
+        System.out.println("[TEST START] Starting workbook saving as test");
         Path tmpDir = Files.createTempDirectory("save_as_book_");
+
+        logClickableFile("[TEST] Created test directory at:",tmpDir);
 
         System.out.println("[TEST] Testing SaveWorkbookAs XLS -> XLS");
         save_as_verify(tmpDir, ".xls", ".xls");
@@ -77,6 +100,8 @@ public class OpenWorkbookTest {
 
         System.out.println("[TEST] Testing SaveWorkbookAs with overwrite=false");
         save_as_overwrite_verify(tmpDir, ".xlsx");
+
+        System.out.println("[TEST END] Finished workbook saving as test");
     }
 
     // ========== HELPER METHODS ==========
@@ -85,14 +110,14 @@ public class OpenWorkbookTest {
         Path work = tmpDir.resolve(bookName);
         Files.copy(url.openStream(), work, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
-        System.out.println("[TEST] Copied test workbook to: " + work.toAbsolutePath());
+        logClickableFile("[TEST] Copied test workbook to:",work);
 
         OpenWorkbook cmd = new OpenWorkbook();
         SessionValue sessionValue = null;
 
         // Test READ-WRITE mode
         try {
-            System.out.println("[TEST] Trying to open the test workbook in READ-WRITE mode at: " + work);
+            logClickableFile("[TEST] Trying to open the test workbook in READ-WRITE mode at:",work);
             sessionValue = cmd.action(work.toString(), null, false);
             System.out.println("[TEST] Opened test successfully");
 
@@ -120,7 +145,7 @@ public class OpenWorkbookTest {
         // Test READ-ONLY mode
         sessionValue = null;
         try {
-            System.out.println("[TEST] Trying to open the test workbook in READ mode at: " + work);
+            logClickableFile("[TEST] Trying to open the test workbook in READ mode at:",work);
             sessionValue = cmd.action(work.toString(), null, true);
             System.out.println("[TEST] Opened test successfully in READ mode");
 
@@ -151,7 +176,7 @@ public class OpenWorkbookTest {
     private void save_workbook_verify(Path tmpDir, String extension) throws Exception {
         Path workPath = tmpDir.resolve("SaveTest" + extension);
 
-        System.out.println("[TEST] Creating new workbook at: " + workPath);
+        logClickableFile("[TEST] Creating new workbook at:",workPath);
 
         // Create workbook
         CreateWorkbook createCmd = new CreateWorkbook();
@@ -213,7 +238,7 @@ public class OpenWorkbookTest {
         Path originalPath = tmpDir.resolve("SaveAsOriginal" + originalExt);
         Path newPath = tmpDir.resolve("SaveAsNew" + newExt);
 
-        System.out.println("[TEST] Creating workbook at: " + originalPath);
+        logClickableFile("[TEST] Creating workbook at:",originalPath);
 
         // Create workbook
         CreateWorkbook createCmd = new CreateWorkbook();
@@ -241,7 +266,7 @@ public class OpenWorkbookTest {
             SaveWorkbookAs saveAsCmd = new SaveWorkbookAs();
             saveAsCmd.action(newPath.toString(), true, wbSession);
 
-            System.out.println("[TEST] SaveWorkbookAs executed to: " + newPath);
+            logClickableFile("[TEST] SaveWorkbookAs executed to:",newPath);
 
             // Verify both files exist
             Assert.assertTrue("Original file should exist", new File(originalPath.toString()).exists());

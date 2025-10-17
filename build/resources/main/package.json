@@ -8,8 +8,8 @@
     },
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.1.11",
-    "codeVersion": "0.1.11",
+    "packageVersion": "0.1.15",
+    "codeVersion": "0.1.15",
     "author": "Gustavo Mattei",
     "commands": [
         {
@@ -570,6 +570,7 @@
             "minimumControlRoomVersion": "8750",
             "minimumBotAgentVersion": "20.11",
             "mainClass": "com.davita.botcommand.excel.commands.dataOperations.AppendRecordToSheetCommand",
+            "groupLabel": "[[Group.dataOperations.label]]",
             "icon": "excel-icon.svg",
             "returns": [
                 {
@@ -614,7 +615,6 @@
                 {
                     "name": "writeHeader",
                     "label": "[[AppendRecordToSheet.writeHeader.label]]",
-                    "description": "[[AppendRecordToSheet.writeHeader.description]]",
                     "type": "CHECKBOX",
                     "rules": [
                         {
@@ -1917,6 +1917,16 @@
                     ]
                 },
                 {
+                    "name": "writeHeader",
+                    "label": "[[WriteTableToWorksheet.writeHeader.label]]",
+                    "type": "CHECKBOX",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
                     "name": "targetSheetMode",
                     "label": "[[WriteTableToWorksheet.targetSheetMode.label]]",
                     "description": "[[WriteTableToWorksheet.targetSheetMode.description]]",
@@ -2121,7 +2131,12 @@
                     "defaultValue": {
                         "boolean": false,
                         "type": "BOOLEAN"
-                    }
+                    },
+                    "rules": [
+                        {
+                            "name": "CREDENTIAL_ALLOW_PASSWORD"
+                        }
+                    ]
                 },
                 {
                     "name": "readOnly",

@@ -49,6 +49,16 @@ public final class WriteTableToWorksheetCommand implements BotCommand {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","table"));
     }
 
+    if(parameters.containsKey("writeHeader") && parameters.get("writeHeader") != null && parameters.get("writeHeader").get() != null) {
+      convertedParameters.put("writeHeader", parameters.get("writeHeader").get());
+      if(convertedParameters.get("writeHeader") !=null && !(convertedParameters.get("writeHeader") instanceof Boolean)) {
+        throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","writeHeader", "Boolean", parameters.get("writeHeader").get().getClass().getSimpleName()));
+      }
+    }
+    if(convertedParameters.get("writeHeader") == null) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","writeHeader"));
+    }
+
     if(parameters.containsKey("targetSheetMode") && parameters.get("targetSheetMode") != null && parameters.get("targetSheetMode").get() != null) {
       convertedParameters.put("targetSheetMode", parameters.get("targetSheetMode").get());
       if(convertedParameters.get("targetSheetMode") !=null && !(convertedParameters.get("targetSheetMode") instanceof String)) {
@@ -122,7 +132,7 @@ public final class WriteTableToWorksheetCommand implements BotCommand {
     }
 
     try {
-      command.action((Table)convertedParameters.get("table"),(String)convertedParameters.get("targetSheetMode"),(String)convertedParameters.get("sheetName"),(String)convertedParameters.get("startCellA1"),(Boolean)convertedParameters.get("retainTypes"),(WorkbookSession)convertedParameters.get("session"));Optional<Value> result = Optional.empty();
+      command.action((Table)convertedParameters.get("table"),(Boolean)convertedParameters.get("writeHeader"),(String)convertedParameters.get("targetSheetMode"),(String)convertedParameters.get("sheetName"),(String)convertedParameters.get("startCellA1"),(Boolean)convertedParameters.get("retainTypes"),(WorkbookSession)convertedParameters.get("session"));Optional<Value> result = Optional.empty();
       return logger.traceExit(result);
     }
     catch (ClassCastException e) {

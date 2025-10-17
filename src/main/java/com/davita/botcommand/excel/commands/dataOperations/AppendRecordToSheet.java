@@ -26,6 +26,7 @@ import java.util.List;
 
 @BotCommand
 @CommandPkg(
+        group_label = "[[Group.dataOperations.label]]",
         name = "appendRecordToSheet",
         label = "[[AppendRecordToSheet.label]]",
         node_label = "[[AppendRecordToSheet.node_label]]",
@@ -47,7 +48,7 @@ public class AppendRecordToSheet {
             String sheetName,
 
             @Idx(index = "3", type = AttributeType.CHECKBOX)
-            @Pkg(label = "[[AppendRecordToSheet.writeHeader.label]]", description = "[[AppendRecordToSheet.writeHeader.description]]")
+            @Pkg(label = "[[AppendRecordToSheet.writeHeader.label]]")
             @NotEmpty
             Boolean writeHeader,
 

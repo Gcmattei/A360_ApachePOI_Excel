@@ -1,5 +1,6 @@
 package com.davita.botcommand.excel.commands.sessionManagement;
 
+import com.automationanywhere.commandsdk.annotations.rules.CredentialAllowPassword;
 import com.automationanywhere.core.security.SecureString;
 import com.davita.botcommand.excel.sessions.WorkbookSession;
 import com.automationanywhere.botcommand.exception.BotCommandException;
@@ -13,6 +14,7 @@ import com.automationanywhere.commandsdk.model.DataType;
 import com.automationanywhere.commandsdk.model.ReturnSettingsType;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 @BotCommand
 @CommandPkg(
@@ -39,7 +41,7 @@ public class OpenWorkbook {
 
             @Idx(index = "2", type = AttributeType.CREDENTIAL)
             @Pkg(label = "[[OpenWorkbook.credential.label]]", description = "[[OpenWorkbook.credential.description]]", default_value_type = DataType.BOOLEAN, default_value = "False")
-            SecureString credential,
+            @CredentialAllowPassword SecureString credential,
 
             @Idx(index = "3", type = AttributeType.CHECKBOX)
             @Pkg(label = "[[OpenWorkbook.readOnly.label]]", description = "[[OpenWorkbook.readOnly.description]]", default_value_type = DataType.BOOLEAN, default_value = "False")
