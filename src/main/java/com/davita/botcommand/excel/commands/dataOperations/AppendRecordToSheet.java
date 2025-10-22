@@ -26,6 +26,7 @@ import java.util.List;
 
 @BotCommand
 @CommandPkg(
+        documentation_url = "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-AppendRecordtoSheet",
         group_label = "[[Group.dataOperations.label]]",
         name = "appendRecordToSheet",
         label = "[[AppendRecordToSheet.label]]",

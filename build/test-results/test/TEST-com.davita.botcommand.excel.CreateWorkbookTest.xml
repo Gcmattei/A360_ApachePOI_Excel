@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.davita.botcommand.excel.CreateWorkbookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-17T19:37:54" hostname="AVELL_DYNPRO" time="0.408">
+<testsuite name="com.davita.botcommand.excel.CreateWorkbookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-22T12:46:26" hostname="AVELL_DYNPRO" time="0.406">
   <properties/>
-  <testcase name="create_workbook_verify" classname="com.davita.botcommand.excel.CreateWorkbookTest" time="0.408"/>
-  <system-out><![CDATA[[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_14194454402544294029
+  <testcase name="create_workbook_verify" classname="com.davita.botcommand.excel.CreateWorkbookTest" time="0.406"/>
+  <system-out><![CDATA[[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_576700592055699124
 [TEST] Testing XLS workbook creation
-[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_14194454402544294029/ExcelTest.xls
+[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_576700592055699124/ExcelTest.xls
 [TEST] Created test workbook
 [TEST] Opening test workbook for verification
 [TEST] Test workbook verified
 [TEST] Testing XLSX workbook creation
-[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_14194454402544294029/ExcelTest.xlsx
+[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_576700592055699124/ExcelTest.xlsx
 [TEST] Created test workbook
 [TEST] Opening test workbook for verification
 [TEST] Test workbook verified

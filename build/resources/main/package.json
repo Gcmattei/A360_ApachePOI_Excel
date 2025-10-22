@@ -8,8 +8,8 @@
     },
     "group": "com.automationanywhere",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.1.15",
-    "codeVersion": "0.1.15",
+    "packageVersion": "0.1.16",
+    "codeVersion": "0.1.16",
     "author": "Gustavo Mattei",
     "commands": [
         {
@@ -564,6 +564,7 @@
             "label": "[[AppendRecordToSheet.label]]",
             "description": "[[AppendRecordToSheet.description]]",
             "nodeLabel": "[[AppendRecordToSheet.node_label]]",
+            "documentationUrl": "https://confluence.davita.com/spaces/PA/pages/993465649/Excel+Package+Documentation#ExcelPackageDocumentation-AppendRecordtoSheet",
             "allowedAgentTargets": [
                 "WINDOWS"
             ],

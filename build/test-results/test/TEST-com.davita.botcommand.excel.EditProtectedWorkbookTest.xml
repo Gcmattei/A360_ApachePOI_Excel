@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.davita.botcommand.excel.EditProtectedWorkbookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-17T19:37:54" hostname="AVELL_DYNPRO" time="1.126">
+<testsuite name="com.davita.botcommand.excel.EditProtectedWorkbookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-22T12:46:27" hostname="AVELL_DYNPRO" time="1.152">
   <properties/>
-  <testcase name="edit_protected_workbook_verify" classname="com.davita.botcommand.excel.EditProtectedWorkbookTest" time="1.126"/>
+  <testcase name="edit_protected_workbook_verify" classname="com.davita.botcommand.excel.EditProtectedWorkbookTest" time="1.152"/>
   <system-out><![CDATA[[TEST START] Starting protected workbook editing test
-[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548
+[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855
 [TEST] Testing XLS protected workbook editing
-[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xls
-[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xls
+[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xls
+[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xls
 [TEST] Opened test successfully
 [TEST] Workbook has 8 sheets
 [TEST] Trying to create sheet 'NewSheet'
@@ -15,8 +15,8 @@
 [TEST] Successfully deleted sheet 'NewSheet'
 [TEST] Closed READ-WRITE session successfully
 [TEST] Testing XLSX protected workbook editing
-[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsx
-[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsx
+[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsx
+[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsx
 [TEST] Opened test successfully
 [TEST] Workbook has 8 sheets
 [TEST] Trying to create sheet 'NewSheet'
@@ -25,8 +25,8 @@
 [TEST] Successfully deleted sheet 'NewSheet'
 [TEST] Closed READ-WRITE session successfully
 [TEST] Testing XLSM protected workbook editing
-[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsm
-[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsm
+[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsm
+[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsm
 [TEST] Opened test successfully
 [TEST] Workbook has 8 sheets
 [TEST] Trying to create sheet 'NewSheet'

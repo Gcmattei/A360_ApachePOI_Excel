@@ -1,27 +1,27 @@
-g[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_1063327402369656020
-}[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_1063327402369656020/Excel_TestFile_out.xlsx
+g[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_4430802611277197134
+}[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_4430802611277197134/Excel_TestFile_out.xlsx
  [TEST] Created record variable
-‹[TEST] Appending record to sheet 'Sheet1' at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_1063327402369656020/Excel_TestFile_out.xlsx
+‹[TEST] Appending record to sheet 'Sheet1' at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_4430802611277197134/Excel_TestFile_out.xlsx
 >[TEST] Append command completed, reopening for verification.
 &[TEST] lastDataRow=5, firstDataCol=0
 <[TEST] Appended values: text=test, number=123.0, flag=true
-i[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_14194454402544294029
+g[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_576700592055699124
 &[TEST] Testing XLS workbook creation
-[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_14194454402544294029/ExcelTest.xls
+[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_576700592055699124/ExcelTest.xls
 [TEST] Created test workbook
 /[TEST] Opening test workbook for verification
 [TEST] Test workbook verified
 '[TEST] Testing XLSX workbook creation
-‚[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_14194454402544294029/ExcelTest.xlsx
+€[TEST] Trying to create a test workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/create_book_576700592055699124/ExcelTest.xlsx
 [TEST] Created test workbook
 /[TEST] Opening test workbook for verification
 [TEST] Test workbook verified
 `WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
 7[TEST START] Starting protected workbook editing test
-n[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548
+q[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855
 /[TEST] Testing XLS protected workbook editing
-‘[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xls
-°[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xls
+”[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xls
+³[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xls
 ![TEST] Opened test successfully
 [TEST] Workbook has 8 sheets
 *[TEST] Trying to create sheet 'NewSheet'
@@ -30,8 +30,8 @@
 .[TEST] Successfully deleted sheet 'NewSheet'
 /[TEST] Closed READ-WRITE session successfully
 0[TEST] Testing XLSX protected workbook editing
-’[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsx
-±[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsx
+•[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsx
+´[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsx
 ![TEST] Opened test successfully
 [TEST] Workbook has 8 sheets
 *[TEST] Trying to create sheet 'NewSheet'
@@ -40,8 +40,8 @@
 .[TEST] Successfully deleted sheet 'NewSheet'
 /[TEST] Closed READ-WRITE session successfully
 0[TEST] Testing XLSM protected workbook editing
-’[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsm
-±[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_67430102830791548/Excel_TestFile_PasswordProtected.xlsm
+•[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsm
+´[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/edit_protected_book_10670704525355229855/Excel_TestFile_PasswordProtected.xlsm
 ![TEST] Opened test successfully
 [TEST] Workbook has 8 sheets
 *[TEST] Trying to create sheet 'NewSheet'
@@ -53,13 +53,13 @@
 
 	-[TEST START] Starting workbook opening test
 
-	f[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531
+	g[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426
 
 	%[TEST] Testing XLS workbook opening
 
-	r[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xls
+	s[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xls
 
-	‘[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xls
+	’[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xls
 
 	![TEST] Opened test successfully
 
@@ -67,7 +67,7 @@
 
 	/[TEST] Closed READ-WRITE session successfully
 
-	‹[TEST] Trying to open the test workbook in READ mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xls
+	Œ[TEST] Trying to open the test workbook in READ mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xls
 
 	.[TEST] Opened test successfully in READ mode
 
@@ -77,9 +77,9 @@
 
 	&[TEST] Testing XLSX workbook opening
 
-	s[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xlsx
+	t[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xlsx
 
-	’[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xlsx
+	“[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xlsx
 
 	![TEST] Opened test successfully
 
@@ -87,7 +87,7 @@
 
 	/[TEST] Closed READ-WRITE session successfully
 
-	Œ[TEST] Trying to open the test workbook in READ mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xlsx
+	[TEST] Trying to open the test workbook in READ mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xlsx
 
 	.[TEST] Opened test successfully in READ mode
 
@@ -97,9 +97,9 @@
 
 	&[TEST] Testing XLSM workbook opening
 
-	s[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xlsm
+	t[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xlsm
 
-	’[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xlsm
+	“[TEST] Trying to open the test workbook in READ-WRITE mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xlsm
 
 	![TEST] Opened test successfully
 
@@ -107,7 +107,7 @@
 
 	/[TEST] Closed READ-WRITE session successfully
 
-	Œ[TEST] Trying to open the test workbook in READ mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_7859341476792625531/ExcelTest.xlsm
+	[TEST] Trying to open the test workbook in READ mode at: C:/Users/GUSTAV~1/AppData/Local/Temp/open_book_17840147925754207426/ExcelTest.xlsm
 
 	.[TEST] Opened test successfully in READ mode
 
@@ -119,17 +119,17 @@
 
 /[TEST START] Starting workbook saving as test
 
-i[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_6181116032026089348
+j[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_13401952163296118954
 
 *[TEST] Testing SaveWorkbookAs XLS -> XLS
 
-w[TEST] Creating workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_6181116032026089348/SaveAsOriginal.xls
+x[TEST] Creating workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_13401952163296118954/SaveAsOriginal.xls
 
 [TEST] Added test data
 
 [TEST] Initial save completed
 
-x[TEST] SaveWorkbookAs executed to: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_6181116032026089348/SaveAsNew.xls
+y[TEST] SaveWorkbookAs executed to: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_13401952163296118954/SaveAsNew.xls
 
 .[TEST] Verified session switched to new path
 
@@ -137,13 +137,13 @@
 
 ,[TEST] Testing SaveWorkbookAs XLSX -> XLSX
 
-x[TEST] Creating workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_6181116032026089348/SaveAsOriginal.xlsx
+y[TEST] Creating workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_13401952163296118954/SaveAsOriginal.xlsx
 
 [TEST] Added test data
 
 [TEST] Initial save completed
 
-y[TEST] SaveWorkbookAs executed to: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_6181116032026089348/SaveAsNew.xlsx
+z[TEST] SaveWorkbookAs executed to: C:/Users/GUSTAV~1/AppData/Local/Temp/save_as_book_13401952163296118954/SaveAsNew.xlsx
 
 .[TEST] Verified session switched to new path
 
@@ -161,7 +161,7 @@
 
 [TEST] Created target file
 
-æ[TEST] Expected exception caught: Failed to save workbook as: E-EXISTS: Destination file already exists: C:\Users\GUSTAV~1\AppData\Local\Temp\save_as_book_6181116032026089348\OverwriteTarget.xlsx. Pass overwrite=true to replace.
+ç[TEST] Expected exception caught: Failed to save workbook as: E-EXISTS: Destination file already exists: C:\Users\GUSTAV~1\AppData\Local\Temp\save_as_book_13401952163296118954\OverwriteTarget.xlsx. Pass overwrite=true to replace.
 
 -[TEST] SaveAs with overwrite=true succeeded
 
@@ -169,11 +169,11 @@
 
 ,[TEST START] Starting workbook saving test
 
-g[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_15505596099381015222
+g[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_10824439252530382722
 
 ,[TEST] Testing SaveWorkbook for XLS format
 
-s[TEST] Creating new workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_15505596099381015222/SaveTest.xls
+s[TEST] Creating new workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_10824439252530382722/SaveTest.xls
 
 $[TEST] Added test data to workbook
 
@@ -189,13 +189,13 @@
 
 -[TEST] Testing SaveWorkbook for XLSX format
 
-t[TEST] Creating new workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_15505596099381015222/SaveTest.xlsx
+t[TEST] Creating new workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_10824439252530382722/SaveTest.xlsx
 
 $[TEST] Added test data to workbook
 
 3[TEST] SaveWorkbook command executed successfully
 
-9[TEST] Verified saved file exists with size: 3298 bytes
+9[TEST] Verified saved file exists with size: 3297 bytes
 
 '[TEST] Closed session after save test
 
@@ -205,13 +205,13 @@
 
 -[TEST] Testing SaveWorkbook for XLSM format
 
-t[TEST] Creating new workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_15505596099381015222/SaveTest.xlsm
+t[TEST] Creating new workbook at: C:/Users/GUSTAV~1/AppData/Local/Temp/save_book_10824439252530382722/SaveTest.xlsm
 
 $[TEST] Added test data to workbook
 
 3[TEST] SaveWorkbook command executed successfully
 
-9[TEST] Verified saved file exists with size: 3298 bytes
+9[TEST] Verified saved file exists with size: 3297 bytes
 
 '[TEST] Closed session after save test
 

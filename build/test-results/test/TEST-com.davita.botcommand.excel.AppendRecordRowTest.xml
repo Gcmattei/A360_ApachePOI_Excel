@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.davita.botcommand.excel.AppendRecordRowTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-17T19:37:52" hostname="AVELL_DYNPRO" time="1.187">
+<testsuite name="com.davita.botcommand.excel.AppendRecordRowTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-22T12:46:25" hostname="AVELL_DYNPRO" time="1.139">
   <properties/>
-  <testcase name="appendRecord_usesExistingSheet_logsAndVerifies" classname="com.davita.botcommand.excel.AppendRecordRowTest" time="1.187"/>
-  <system-out><![CDATA[[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_1063327402369656020
-[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_1063327402369656020/Excel_TestFile_out.xlsx
+  <testcase name="appendRecord_usesExistingSheet_logsAndVerifies" classname="com.davita.botcommand.excel.AppendRecordRowTest" time="1.139"/>
+  <system-out><![CDATA[[TEST] Created test directory at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_4430802611277197134
+[TEST] Copied test workbook to: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_4430802611277197134/Excel_TestFile_out.xlsx
 [TEST] Created record variable
-[TEST] Appending record to sheet 'Sheet1' at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_1063327402369656020/Excel_TestFile_out.xlsx
+[TEST] Appending record to sheet 'Sheet1' at: C:/Users/GUSTAV~1/AppData/Local/Temp/append_row_4430802611277197134/Excel_TestFile_out.xlsx
 [TEST] Append command completed, reopening for verification.
 [TEST] lastDataRow=5, firstDataCol=0
 [TEST] Appended values: text=test, number=123.0, flag=true
