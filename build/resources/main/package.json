@@ -6,10 +6,10 @@
         "label": "[[sessionLabel]]",
         "description": "[[sessionDescription]]"
     },
-    "group": "com.automationanywhere",
+    "group": "com.davita",
     "artifactName": "ExcelCustomPackage",
-    "packageVersion": "0.1.16",
-    "codeVersion": "0.1.16",
+    "packageVersion": "0.1.17",
+    "codeVersion": "0.1.17",
     "author": "Gustavo Mattei",
     "commands": [
         {

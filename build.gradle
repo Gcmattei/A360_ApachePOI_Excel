@@ -21,11 +21,11 @@ configure(allprojects){
 	apply plugin: "com.automationanywhere.command-codegen"
 
 	ext {
-		groupName = 'com.automationanywhere'
+		groupName = 'com.davita'
 		testNgVersion = '6.14.3'
 		loggerVersion = '2.20.0'
 		jnaVersion = '5.3.1'
-		version '0.1.16'
+		version '0.1.17'
 	}
 	group "$groupName"
 

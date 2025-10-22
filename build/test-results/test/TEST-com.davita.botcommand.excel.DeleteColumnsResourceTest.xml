@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.davita.botcommand.excel.DeleteColumnsResourceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-22T12:46:26" hostname="AVELL_DYNPRO" time="0.227">
-  <properties/>
-  <testcase name="deleteColumns_fromResource_writeOutputAlongside_overwriteIfExists" classname="com.davita.botcommand.excel.DeleteColumnsResourceTest" time="0.227"/>
-  <system-out><![CDATA[WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
